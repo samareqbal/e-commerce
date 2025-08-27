@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:upstore/common/widgets/custom_shapes/primary_header_container.dart';
-import 'package:upstore/common/widgets/images/circular_image.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/features/personalization/screens/profile/widgets/profile_primary_header.dart';
 import 'package:upstore/features/personalization/screens/profile/widgets/settings_menu_tile.dart';
 import 'package:upstore/features/personalization/screens/profile/widgets/user_profile_tile.dart';
-import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
 class ProfileScreen extends StatelessWidget {

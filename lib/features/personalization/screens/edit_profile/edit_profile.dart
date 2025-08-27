@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/appbar/appbar.dart';
-import 'package:upstore/common/widgets/icons/circular_icon.dart';
-import 'package:upstore/common/widgets/images/user_profile_logo.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/features/personalization/screens/edit_profile/widgets/user_profile_with_edit_icon.dart';
 import 'package:upstore/utils/constants/sizes.dart';

@@ -11,7 +11,6 @@ import 'package:upstore/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/images.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../style/shadow.dart';
-import '../../texts/brand_title_text.dart';
 import '../../texts/brand_title_with_verify_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';

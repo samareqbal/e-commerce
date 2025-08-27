@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:upstore/utils/constants/colors.dart';
 
 import '../../../../../common/widgets/custom_shapes/primary_header_container.dart';
-import '../../../../../common/widgets/images/circular_image.dart';
 import '../../../../../common/widgets/images/user_profile_logo.dart';
-import '../../../../../utils/constants/images.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class SProfilePrimaryHeader extends StatelessWidget {

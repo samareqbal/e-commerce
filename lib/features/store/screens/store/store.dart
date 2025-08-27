@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
-import 'package:upstore/common/widgets/layouts/grid_layout.dart';
-import 'package:upstore/common/widgets/products/product_card/product_card_vertical.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/features/store/screens/store/widgets/category_tab.dart';
 import 'package:upstore/features/store/screens/store/widgets/store_primary_header.dart';
-import 'package:upstore/utils/constants/colors.dart';
-import 'package:upstore/utils/constants/images.dart';
-import 'package:upstore/utils/helpers/device_helpers.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';
-import '../../../../common/widgets/brands/brand_showcase.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class StoreScreen extends StatelessWidget {
