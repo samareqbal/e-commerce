@@ -1,4 +1,4 @@
-# upstore
+# E-Com
 
 A new Flutter project.
 
