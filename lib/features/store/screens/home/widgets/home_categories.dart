@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:upstore/features/store/screens/sub_category/sub_category.dart';
 import 'package:upstore/utils/constants/images.dart';
 
 import '../../../../../common/widgets/image_text/vertical_image_text.dart';
@@ -37,7 +39,9 @@ class SHomeCategories extends StatelessWidget {
                 return SVerticalImageText(
                     title: 'Sports',
                     image: SImages.bagsIcon,
-                    textColor: SColors.white);
+                    textColor: SColors.white,
+                  onTap: () => Get.to(() => SubCategoryScreen()),
+                );
               },
             ),
           )

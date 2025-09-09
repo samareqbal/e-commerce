@@ -13,6 +13,7 @@ import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/product_card/product_card_vertical.dart';
 import '../../../../common/widgets/text_fields/search_bar.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
+import '../all_products/all_products.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -69,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: SSizes.spaceBtwSections),
         
                   //Section Heading
-                  SSectionHeading(title: 'Popular Products',onPressed: (){}),
+                  SSectionHeading(title: 'Popular Products',onPressed: ()=> Get.to(() => AllProductsScreen())),
         
                   const SizedBox(height: SSizes.spaceBtwItems),
         
