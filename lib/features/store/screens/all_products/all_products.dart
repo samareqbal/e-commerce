@@ -6,6 +6,8 @@ import 'package:upstore/common/widgets/layouts/grid_layout.dart';
 import 'package:upstore/common/widgets/products/product_card/product_card_vertical.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
+import '../../../../common/widgets/products/sortable_products.dart';
+
 class AllProductsScreen extends StatelessWidget {
   const AllProductsScreen({super.key});
 
@@ -20,25 +22,11 @@ class AllProductsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
             padding: SPadding.screenPadding,
-          child: Column(
-            children: [
-              DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Iconsax.sort)
-                  ),
-                  onChanged: (value) => {},
-                items: ['Name', 'Lower Price', 'Higher Price', 'Sale', 'Newest'].map((filter) {
-                  return DropdownMenuItem(value: filter,child: Text(filter),);
-                },).toList()
-              ),
-
-              const SizedBox(height: SSizes.spaceBtwSections),
-
-              SGridLayout(itemCount: 5, itemBuilder: (context, index) => SProductCardVertical())
-            ],
-          ),
+          child: SSortableProducts(),
         ),
       ),
     );
   }
 }
+
+

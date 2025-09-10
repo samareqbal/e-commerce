@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:upstore/features/authentication/screens/login/login.dart';
 
 class OnBoardingController extends GetxController{
@@ -7,6 +8,8 @@ class OnBoardingController extends GetxController{
 
   final pageController = PageController();
   RxInt currentIndex = 0.obs;
+
+  final localStorage = GetStorage();
 
   //Update current index while page scroll
   void updatePageIndicator(index){
@@ -23,11 +26,13 @@ class OnBoardingController extends GetxController{
   //Update current index and jump to next page
   void nextPage(){
     if(currentIndex.value == 2){
+      localStorage.write('isFirstTime', false);
       Get.offAll(() => const LoginScreen());
-      return;
+    }else{
+      currentIndex.value++;
+      pageController.jumpToPage(currentIndex.value);
     }
-    currentIndex.value++;
-    pageController.jumpToPage(currentIndex.value);
+
   }
 
   //Update current index and jump to last page

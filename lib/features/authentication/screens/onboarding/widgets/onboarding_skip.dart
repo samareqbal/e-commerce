@@ -14,7 +14,7 @@ class OnBoardingSkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-        () =>  controller.currentIndex == 2 ? const SizedBox() : Positioned(
+        () =>  controller.currentIndex == 2.obs ? const SizedBox() : Positioned(
           top: SDeviceHelper.getAppBarHeight(),
           right: 0,
           child: TextButton(

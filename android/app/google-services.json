@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "275522388912",
+    "project_id": "ecom-9cd00",
+    "storage_bucket": "ecom-9cd00.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275522388912:android:4d4ddc195c80f4b1798c75",
+        "android_client_info": {
+          "package_name": "com.samar.upstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275522388912-fql7rag5ml5bo0p35035t6jt8p3rtt9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samar.upstore",
+            "certificate_hash": "7fbfebb4a41d9674039754ca376de9021b744122"
+          }
+        },
+        {
+          "client_id": "275522388912-sna31p562gg0hqt8ffrlr5u79flgk8rc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCosz9rPTZD_sshJBWXqUfztRkDalwP9pM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275522388912-sna31p562gg0hqt8ffrlr5u79flgk8rc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

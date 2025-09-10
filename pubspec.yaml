@@ -50,7 +50,7 @@ dependencies:
   path_provider: ^2.1.0
   intl: ^0.20.2
   flutter_branch_sdk: ^8.0.0
-  flutter_stripe: ^11.5.0
+  flutter_stripe: ^11.3.0
 
   # State-Management
   get: ^4.6.6

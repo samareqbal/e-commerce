@@ -44,14 +44,14 @@ class OnboardingScreen extends StatelessWidget {
               ],
             ),
 
+            //Skip Button
+            OnBoardingSkipButton(),
+
             //Indicator
             OnBoardingDotNavigation(),
 
             //Bottom Button
             OnBoardingNextButton(),
-
-            //Skip Button
-            OnBoardingSkipButton(),
           ],
         ),
       ),

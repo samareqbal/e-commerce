@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/button/social_buttons.dart';
 import 'package:upstore/common/widgets/login_signup/form_divider.dart';
+import 'package:upstore/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:upstore/features/authentication/screens/signup/widgets/signup_form.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
@@ -12,6 +14,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignupController());
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(

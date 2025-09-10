@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/features/personalization/screens/address/address.dart';
 import 'package:upstore/features/personalization/screens/profile/widgets/profile_primary_header.dart';
 import 'package:upstore/features/personalization/screens/profile/widgets/settings_menu_tile.dart';
@@ -58,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
-                          onPressed: () {}, child: Text('Logout'))),
+                          onPressed: () => AuthenticationRepository.instance.logout(), child: Text('Logout'))),
 
                   const SizedBox(height: SSizes.spaceBtwSections),
                 ],
