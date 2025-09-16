@@ -14,11 +14,11 @@ class SKeys{
   static const String rememberMeEmail = 'rememberEmail';
   static const String rememberMePassword = 'rememberPassword';
 
-  static const String cloudName = 'dx4o5amce';
+  static const String cloudName = 'dxfhyjzf1';
   static const String uploadPreset = 'upload_image';
   static const String profileFolder = 'Profile Pictures';
-  static const String apiKey = 'YOUR_API_KEY';
-  static const String apiSecret = 'YOUR_API_SECRET';
+  static const String apiKey = '877734682844884';
+  static const String apiSecret = 'FM1yZV0UeFc4D0mpV60a05as4vc';
 
 
   static const String categoryFolder = 'Category Pictures';

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/appbar/appbar.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/features/personalization/controllers/user_controller.dart';
+import 'package:upstore/features/personalization/screens/change_name/change_name.dart';
 import 'package:upstore/features/personalization/screens/edit_profile/widgets/user_profile_with_edit_icon.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
@@ -12,6 +15,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: SAppBar(
         showBackArrow: true,
@@ -36,8 +40,8 @@ class EditProfileScreen extends StatelessWidget {
 
 
 
-              UserDetailsRow(title: 'Name', value: 'Samar Eqbal', onTap: () {}),
-              UserDetailsRow(title: 'Username', value: 'test@gmail.com', onTap: () {}),
+              UserDetailsRow(title: 'Name', value: controller.user.value.fullName, onTap: () => Get.to(() => ChangeNameScreen())),
+              UserDetailsRow(title: 'Username', value: controller.user.value.username, onTap: () {}),
               const SizedBox(height: SSizes.spaceBtwItems),
 
               //Profile section
@@ -47,16 +51,16 @@ class EditProfileScreen extends StatelessWidget {
               SSectionHeading(title: 'Profile Settings', showActionButton: false),
               const SizedBox(height: SSizes.spaceBtwItems),
 
-              UserDetailsRow(title: 'User ID', value: '33904', onTap: () {}),
-              UserDetailsRow(title: 'Email', value: 'test@gmail.com', onTap: () {}),
-              UserDetailsRow(title: 'Phone Number', value: '+91-9709280453', onTap: () {}),
+              UserDetailsRow(title: 'User ID', value: controller.user.value.id, onTap: () {}),
+              UserDetailsRow(title: 'Email', value: controller.user.value.email, onTap: () {}),
+              UserDetailsRow(title: 'Phone Number', value: '+91-${controller.user.value.phoneNumber}', onTap: () {}),
               UserDetailsRow(title: 'Gender', value: 'Male', onTap: () {}),
               const SizedBox(height: SSizes.spaceBtwItems),
 
               Divider(),
               const SizedBox(height: SSizes.spaceBtwItems),
 
-              TextButton(onPressed: (){}, child: Text('Delete Account', style: TextStyle(color: Colors.red),))
+              TextButton(onPressed: () => controller.deleteAccountWarningPopup(), child: Text('Delete Account', style: TextStyle(color: Colors.red),))
 
             ],
           ),

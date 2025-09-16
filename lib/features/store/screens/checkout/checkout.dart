@@ -9,7 +9,6 @@ import 'package:upstore/features/store/screens/checkout/widgets/billind_address_
 import 'package:upstore/features/store/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:upstore/features/store/screens/checkout/widgets/billing_payment_section.dart';
 import 'package:upstore/navigation_menu.dart';
-import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';

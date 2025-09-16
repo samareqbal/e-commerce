@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:upstore/features/personalization/controllers/user_controller.dart';
 
 import '../../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../../common/widgets/images/user_profile_logo.dart';
@@ -11,6 +12,7 @@ class UserProfileWithEditIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Stack(
       children: [
         Center(child: UserProfileLogo()),
@@ -20,7 +22,7 @@ class UserProfileWithEditIcon extends StatelessWidget {
             right: 0,
             bottom: 0,
             top: 0,
-            child: Center(child: SCircularIcon(icon: Iconsax.edit)))
+            child: Center(child: SCircularIcon(icon: Iconsax.edit, onPressed: controller.updateUserProfilePicture,)))
       ],
     );
   }

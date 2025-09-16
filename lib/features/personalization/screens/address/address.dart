@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/appbar/appbar.dart';
-import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/features/personalization/screens/address/add_new_address.dart';
 import 'package:upstore/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:upstore/utils/constants/colors.dart';

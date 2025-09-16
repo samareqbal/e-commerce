@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/button/elevated_button.dart';
-import 'package:upstore/common/widgets/screens/success_screen.dart';
 import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/features/authentication/controllers/signup/verify_email_controller.dart';
-import 'package:upstore/features/authentication/screens/login/login.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/helpers/device_helpers.dart';
 

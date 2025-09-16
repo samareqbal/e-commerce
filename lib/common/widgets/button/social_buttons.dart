@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:upstore/features/authentication/controllers/login/login_controller.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/images.dart';
@@ -11,10 +13,11 @@ class SSocialButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        buildButton(SImages.googleIcon,(){}),
+        buildButton(SImages.googleIcon,controller.googleSignIn),
 
         const SizedBox(width: SSizes.spaceBtwItems),
 

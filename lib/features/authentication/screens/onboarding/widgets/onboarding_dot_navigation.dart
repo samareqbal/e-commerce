@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:upstore/features/authentication/controllers/onboarding/onboarding_controller.dart';
 
@@ -9,10 +10,11 @@ class OnBoardingDotNavigation extends StatelessWidget {
     super.key,
   });
 
-  final controller = OnBoardingController.instance;
+  // final controller = OnBoardingController.instance;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<OnBoardingController>();
     return Positioned(
         bottom: SDeviceHelper.getBottomNavigationBarHeight() * 4,
         left: SDeviceHelper.getScreenWidth(context) / 3,

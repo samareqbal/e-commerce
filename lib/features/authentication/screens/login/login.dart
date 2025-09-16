@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upstore/common/style/padding.dart';
+import 'package:upstore/features/authentication/controllers/login/login_controller.dart';
 import 'package:upstore/features/authentication/screens/login/widgets/login_form.dart';
 import 'package:upstore/features/authentication/screens/login/widgets/login_header.dart';
 
@@ -13,6 +15,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginController());
     return Scaffold(
       appBar: AppBar(),
       body: const SingleChildScrollView(

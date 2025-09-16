@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:upstore/features/authentication/controllers/onboarding/onboarding_controller.dart';
 
@@ -10,10 +11,11 @@ class OnBoardingNextButton extends StatelessWidget {
     super.key,
   });
 
-  final controller = OnBoardingController.instance;
+  // final controller = OnBoardingController.instance;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<OnBoardingController>();
     return Positioned(
         left: 0,
         right: 0,

@@ -13,9 +13,10 @@ import '../../../../utils/constants/sizes.dart';
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({super.key});
 
-  final controller = Get.put(OnBoardingController());
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(OnBoardingController(), permanent: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: SSizes.defaultSpace),
@@ -25,7 +26,7 @@ class OnboardingScreen extends StatelessWidget {
             PageView(
               controller: controller.pageController,
               onPageChanged: controller.updatePageIndicator,
-              children: const [
+              children:  [
                 OnBoardingPage(
                   animation: SImages.onboarding1Animation,
                   title: STexts.onBoardingTitle1,
