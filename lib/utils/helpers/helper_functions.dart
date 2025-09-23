@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SHelperFunctions {
   SHelperFunctions._();
@@ -59,5 +63,17 @@ class SHelperFunctions {
     } else {
       return 'Good Night';
     }
+  }
+
+  static Future<File> assetToFile(String assetPath) async {
+    final byteData = await rootBundle.load(assetPath);
+
+    final tempDir = await getTemporaryDirectory();
+
+    final file = File('${tempDir.path}/${assetPath.split('/').last}');
+    
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+
+    return file;
   }
 }

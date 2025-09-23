@@ -7,6 +7,8 @@ import 'package:upstore/common/widgets/products/product_card/product_card_vertic
 import 'package:upstore/navigation_menu.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
+import '../../models/product_model.dart';
+
 class WishListScreen extends StatelessWidget {
   const WishListScreen({super.key});
 
@@ -29,7 +31,7 @@ class WishListScreen extends StatelessWidget {
           padding: const EdgeInsets.all(SSizes.defaultSpace),
           child: SGridLayout(
             itemCount: 10,
-            itemBuilder: (context, index) => SProductCardVertical(),
+            itemBuilder: (context, index) => SProductCardVertical(product: ProductModel.empty()),
           ),
         ),
       ),

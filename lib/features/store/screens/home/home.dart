@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upstore/features/store/controllers/home/home_controller.dart';
+import 'package:upstore/features/store/controllers/product/product_controller.dart';
+import 'package:upstore/features/store/models/product_model.dart';
 
 import 'package:upstore/features/store/screens/home/widgets/home_app_bar.dart';
 import 'package:upstore/features/store/screens/home/widgets/home_categories.dart';
@@ -20,7 +22,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    Get.put(HomeController());
+    final controller = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -57,14 +60,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   //Banners
                   SPromoSlider(
-                    banners: [
-                      SImages.homeBanner1,
-                      SImages.homeBanner2,
-                      SImages.homeBanner3,
-                      SImages.homeBanner4,
-                      SImages.homeBanner5,
-                      SImages.homeBanner6,
-                    ],
+
                   ),
         
                   const SizedBox(height: SSizes.spaceBtwSections),
@@ -75,11 +71,28 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: SSizes.spaceBtwItems),
         
                   //Vertical product card and gridview
-                  SGridLayout(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return SProductCardVertical();
-                    },
+                  Obx(
+                    (){
+
+                      if(controller.isLoading.value){
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+
+                      if(controller.products.isEmpty){
+                        return const Center(child: Text("No Featured products found"));
+                      }
+
+
+
+                      return SGridLayout(
+                        itemCount: controller.products.length,
+                        itemBuilder: (context, index) {
+                          ProductModel product = controller.products[index];
+                          return SProductCardVertical(product: product);
+                        },
+                      );
+                    }
                   )
                 ],
               ),

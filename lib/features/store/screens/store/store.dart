@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upstore/common/widgets/shimmer/brands_shimmer.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/features/store/controllers/brand/brand_controller.dart';
+import 'package:upstore/features/store/controllers/category/category_controller.dart';
 import 'package:upstore/features/store/screens/brands/all_brands.dart';
 import 'package:upstore/features/store/screens/store/widgets/category_tab.dart';
 import 'package:upstore/features/store/screens/store/widgets/store_primary_header.dart';
@@ -15,9 +18,10 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = SHelperFunctions.isDarkMode(context);
+    final controller = CategoryController.instance;
+    final brandController = Get.put(BrandController());
     return DefaultTabController(
-      length: 5,
+      length: controller.featuredCategories.length,
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -46,17 +50,34 @@ class StoreScreen extends StatelessWidget {
                             //Brand Card
                             SizedBox(
                               height: SSizes.brandCardHeight,
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: SSizes.spaceBtwItems),
-                                itemCount: 10,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                      width: SSizes.brandCardWidth,
-                                      child: SBrandCard());
-                                },
+                              child: Obx(
+                                  () {
+
+
+                                    if(brandController.isLoading.value){
+                                      return SBrandShimmer();
+                                    }
+
+                                    if(brandController.featuredBrands.isEmpty){
+                                      return Text('Brands not found');
+                                    }
+
+                                    return ListView.separated(
+                                      separatorBuilder: (context, index) =>
+                                      const SizedBox(width: SSizes.spaceBtwItems),
+                                      itemCount: brandController.featuredBrands.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+
+                                        final brand = brandController.featuredBrands[index];
+
+                                        return SizedBox(
+                                            width: SSizes.brandCardWidth,
+                                            child: SBrandCard(brand: brand));
+                                      },
+                                    );
+                                  }
                               ),
                             )
                           ],
@@ -66,25 +87,13 @@ class StoreScreen extends StatelessWidget {
                   ),
                 ),
                 bottom: STabBar(
-                  tabs: [
-                    Tab(child: Text('Sports')),
-                    Tab(child: Text('Furniture')),
-                    Tab(child: Text('Electronics')),
-                    Tab(child: Text('Clothes')),
-                    Tab(child: Text('Cosmetics'))
-                  ],
+                  tabs: controller.featuredCategories.map((category) => Tab(child: Text(category.name))).toList()
                 ),
               )
             ];
           },
           body: TabBarView(
-            children: [
-              SCategoryTab(),
-              SCategoryTab(),
-              SCategoryTab(),
-              SCategoryTab(),
-              SCategoryTab()
-            ],
+            children: controller.featuredCategories.map((category) => SCategoryTab()).toList()
           ),
         ),
       ),

@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upstore/data/repositories/authentication_repository.dart';
+import 'package:upstore/data/services/cloudinary_services.dart';
 import 'package:upstore/features/authentication/models/user_model.dart';
 import 'package:upstore/utils/constants/apis.dart';
 import 'package:upstore/utils/constants/keys.dart';
@@ -19,6 +22,7 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final _db = FirebaseFirestore.instance;
+  final _cloudinaryServices = Get.put(CloudinaryServices());
 
   //Save User Data
   Future<void> saveUserRecord(UserModel user) async {
@@ -104,23 +108,28 @@ class UserRepository extends GetxController {
     }
   }
 
+  //Upload profile pic
   Future<dio.Response> uploadImage(File image) async {
     try{
 
-      String url = SApiUrls.uploadApi(SKeys.cloudName);
-
-      dio.FormData formData = dio.FormData.fromMap({
-        'upload_preset': SKeys.uploadPreset,
-        'folder': SKeys.profileFolder,
-        'file': await dio.MultipartFile.fromFile(image.path, filename: image.path.split('/').last)
-      });
-
-      dio.Response response = await dio.Dio().post(url, data: formData);
-
+      dio.Response response = await _cloudinaryServices.uploadImage(image, SKeys.profileFolder);
       return response;
 
     }catch(e){
       throw 'Failed to upload profile picture. Please try again';
+    }
+  }
+
+  //delete profile pic
+  Future<dio.Response> deleteImage(String publicId) async {
+    try{
+
+      dio.Response response = await _cloudinaryServices.deleteImage(publicId);
+
+      return response;
+
+    }catch(e){
+      throw 'Something went wrong. Please try again';
     }
   }
 }

@@ -27,11 +27,12 @@ class OnBoardingController extends GetxController{
   //Jump to specific dot selected page
   void dotNavigationClick(index){
     currentIndex.value = index;
-    pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    pageController.jumpToPage(index);
+    // pageController.animateToPage(
+    //   index,
+    //   duration: const Duration(milliseconds: 300),
+    //   curve: Curves.easeInOut,
+    // );
   }
 
   //Update current index and jump to next page

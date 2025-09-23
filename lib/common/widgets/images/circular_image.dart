@@ -1,21 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:upstore/common/widgets/shimmer/shimmer_effect.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 
 class SCircularImage extends StatelessWidget {
-  const SCircularImage({super.key,this.width = 56,
-    this.height = 56,
-    this.overlayColor,
-    this.backgroundColor,
-    required this.image,
-    this.fit = BoxFit.cover,
-    this.padding = SSizes.sm,
-    this.isNetworkImage = false,
-    this.showBorder = false,
-    this.borderColor = SColors.primary,
-    this.borderWidth = 1.0});
+  const SCircularImage(
+      {super.key,
+      this.width = 56,
+      this.height = 56,
+      this.overlayColor,
+      this.backgroundColor,
+      required this.image,
+      this.fit = BoxFit.cover,
+      this.padding = SSizes.sm,
+      this.isNetworkImage = false,
+      this.showBorder = false,
+      this.borderColor = SColors.primary,
+      this.borderWidth = 1.0});
 
   final BoxFit? fit;
   final String image;
@@ -37,10 +41,21 @@ class SCircularImage extends StatelessWidget {
       decoration: BoxDecoration(
           color: backgroundColor ?? (dark ? SColors.dark : SColors.light),
           borderRadius: BorderRadius.circular(100),
-          border: showBorder ? Border.all(color: borderColor, width: borderWidth) : null),
+          border: showBorder
+              ? Border.all(color: borderColor, width: borderWidth)
+              : null),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Image(fit: fit, image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider),
+        child: isNetworkImage
+            ? CachedNetworkImage(
+                imageUrl: image,
+                fit: fit,
+                color: overlayColor,
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                progressIndicatorBuilder: (context, url, progress) =>
+                    SShimmerEffect(width: 55, height: 55),
+              )
+            : Image(fit: fit, image: AssetImage(image)),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/features/personalization/controllers/user_controller.dart';
 
@@ -16,13 +17,21 @@ class UserProfileWithEditIcon extends StatelessWidget {
     return Stack(
       children: [
         Center(child: UserProfileLogo()),
-
-        Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 0,
-            child: Center(child: SCircularIcon(icon: Iconsax.edit, onPressed: controller.updateUserProfilePicture,)))
+        Obx(() {
+          if (controller.isProfilePictureUploading.value) {
+            return SizedBox();
+          }
+          return Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+              child: Center(
+                  child: SCircularIcon(
+                icon: Iconsax.edit,
+                onPressed: controller.updateUserProfilePicture,
+              )));
+        })
       ],
     );
   }

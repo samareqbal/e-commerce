@@ -5,6 +5,7 @@ import 'package:upstore/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/brands/brand_card.dart';
 import '../../../../common/widgets/products/sortable_products.dart';
+import '../../models/brand_model.dart';
 
 class BrandProductsScreen extends StatelessWidget {
   const BrandProductsScreen({super.key});
@@ -22,7 +23,7 @@ class BrandProductsScreen extends StatelessWidget {
           padding: SPadding.screenPadding,
           child: Column(
             children: [
-              SBrandCard(),
+              SBrandCard(brand: BrandModel.empty()),
               const SizedBox(height: SSizes.spaceBtwItems),
               SSortableProducts()
             ],

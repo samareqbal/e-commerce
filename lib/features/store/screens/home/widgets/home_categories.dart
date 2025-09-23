@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upstore/common/widgets/shimmer/category_shimmer.dart';
+import 'package:upstore/features/store/controllers/category/category_controller.dart';
+import 'package:upstore/features/store/models/category_model.dart';
 import 'package:upstore/features/store/screens/sub_category/sub_category.dart';
 import 'package:upstore/utils/constants/images.dart';
 
@@ -15,6 +18,7 @@ class SHomeCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CategoryController());
     return Padding(
       padding: const EdgeInsets.only(left: SSizes.spaceBtwSections),
       child: Column(
@@ -28,22 +32,37 @@ class SHomeCategories extends StatelessWidget {
                 .apply(color: SColors.white),
           ),
           const SizedBox(height: SSizes.spaceBtwItems),
-          SizedBox(
-            height: 80,
-            child: ListView.separated(
-              separatorBuilder: (context, index) =>
+          Obx(
+            () {
+              final categories = controller.featuredCategories;
+
+              if(controller.isCategoriesLoading.value){
+                return SCategoryShimmer();
+              }
+
+              if(categories.isEmpty){
+                return Text('No Data Found');
+              }
+
+              return SizedBox(
+                height: 80,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
                   const SizedBox(width: SSizes.spaceBtwItems),
-              scrollDirection: Axis.horizontal,
-              itemCount: 12,
-              itemBuilder: (context, index) {
-                return SVerticalImageText(
-                    title: 'Sports',
-                    image: SImages.bagsIcon,
-                    textColor: SColors.white,
-                  onTap: () => Get.to(() => SubCategoryScreen()),
-                );
-              },
-            ),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    CategoryModel category = categories[index];
+                    return SVerticalImageText(
+                      title: category.name,
+                      image: category.image,
+                      textColor: SColors.white,
+                      onTap: () => Get.to(() => SubCategoryScreen()),
+                    );
+                  },
+                ),
+              );
+            }
           )
         ],
       ),

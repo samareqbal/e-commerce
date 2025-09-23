@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:upstore/features/store/controllers/product/product_controller.dart';
+import 'package:upstore/features/store/models/product_model.dart';
+import 'package:upstore/utils/constants/enums.dart';
+import 'package:upstore/utils/constants/texts.dart';
 
 import '../../../../../common/widgets/custom_shapes/rounded_container.dart';
 import '../../../../../common/widgets/images/circular_image.dart';
@@ -11,59 +15,73 @@ import '../../../../../utils/constants/sizes.dart';
 
 class SProductMetaData extends StatelessWidget {
   const SProductMetaData({
-    super.key,
+    super.key, required this.product,
   });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+
+    final controller = ProductController.instance;
+    String? salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            SRoundedContainer(
-              radius: SSizes.sm,
-              backgroundColor: SColors.yellow.withOpacity(0.8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SSizes.sm, vertical: SSizes.xs),
-              child: Text("20%",
+
+            if(salePercentage != null)...[
+              SRoundedContainer(
+                radius: SSizes.sm,
+                backgroundColor: SColors.yellow.withOpacity(0.8),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SSizes.sm, vertical: SSizes.xs),
+                child: Text("${salePercentage}%",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(color: SColors.black)),
+              ),
+              const SizedBox(width: SSizes.spaceBtwItems),
+            ],
+
+
+            if(product.productType == ProductType.single.toString() && product.salePrice > 0)...[
+              Text('${STexts.currency}${product.price.toStringAsFixed(0)}',
                   style: Theme.of(context)
                       .textTheme
-                      .labelLarge!
-                      .apply(color: SColors.black)),
-            ),
-            const SizedBox(width: SSizes.spaceBtwItems),
-            Text('₹300',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .apply(decoration: TextDecoration.lineThrough)),
-            const SizedBox(width: SSizes.spaceBtwItems),
-            SProductPriceText(price: "150", isLarge: true, currencySign: '₹'),
+                      .titleSmall!
+                      .apply(decoration: TextDecoration.lineThrough)),
+              const SizedBox(width: SSizes.spaceBtwItems),
+            ],
+
+            SProductPriceText(price: controller.getProductPrice(product), isLarge: true),
             Spacer(),
             IconButton(onPressed: () {}, icon: Icon(Icons.share))
           ],
         ),
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
-        SProductTitleText(title: 'Apple iPhone 11'),
+        SProductTitleText(title: product.title),
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
         Row(
           children: [
             SProductTitleText(title: 'Status'),
             const SizedBox(width: SSizes.spaceBtwItems),
-            Text('In stock', style: Theme.of(context).textTheme.titleMedium)
+            Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium)
           ],
         ),
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
         Row(
           children: [
             SCircularImage(
-                image: SImages.adidasLogo,
+              isNetworkImage: true,
+                image: product.brand != null ? product.brand!.image : '',
                 width: 32.0,
                 height: 32.0,
                 padding: 0),
             const SizedBox(width: SSizes.spaceBtwItems),
-            SBrandTitleWithVerifyIcon(title: 'Adidas')
+            SBrandTitleWithVerifyIcon(title: product.brand != null ? product.brand!.name : '')
           ],
         ),
       ],

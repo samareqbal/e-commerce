@@ -6,6 +6,7 @@ import '../../../../../common/widgets/products/product_card/product_card_vertica
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/images.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../models/product_model.dart';
 
 class SCategoryTab extends StatelessWidget {
   const SCategoryTab({
@@ -45,7 +46,7 @@ class SCategoryTab extends StatelessWidget {
               SGridLayout(
                 itemCount: 4,
                 itemBuilder: (context, index) {
-                  return SProductCardVertical();
+                  return SProductCardVertical(product: ProductModel.empty());
                 },
               ),
 

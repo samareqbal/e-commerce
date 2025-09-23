@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
+import '../../../features/store/models/brand_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/rounded_container.dart';
@@ -26,7 +27,7 @@ class SBrandShowCase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SBrandCard(showBorder: false),
+          SBrandCard(showBorder: false, brand: BrandModel.empty()),
 
           Row(
             children: images.map((image) => buildBrandImage(dark,image)).toList()

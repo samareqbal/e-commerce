@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../features/store/models/brand_model.dart';
 import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/images.dart';
 import '../../../utils/constants/sizes.dart';
@@ -10,12 +11,13 @@ import '../texts/brand_title_with_verify_icon.dart';
 class SBrandCard extends StatelessWidget {
   const SBrandCard({
     super.key,
-    this.showBorder = true, this.onTap
+    this.showBorder = true, this.onTap, required this.brand
   });
 
   final bool showBorder;
   final VoidCallback? onTap;
 
+  final BrandModel brand;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +32,8 @@ class SBrandCard extends StatelessWidget {
             //Brand logo
             Flexible(
                 child: SRoundedImage(
-                    imageUrl: SImages.adidasLogo,
+                    imageUrl: brand.image,
+                    isNetworkImage: true,
                     backgroundColor: Colors.transparent)),
 
             const SizedBox(width: SSizes.spaceBtwItems / 2),
@@ -42,8 +45,8 @@ class SBrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SBrandTitleWithVerifyIcon(
-                      title: 'Adidas', brandTextSize: TextSizes.large),
-                  Text("172 products",
+                      title: brand.name, brandTextSize: TextSizes.large),
+                  Text('${brand.productsCount} products',
                       style: Theme.of(context).textTheme.labelMedium,
                       overflow: TextOverflow.ellipsis)
                 ],

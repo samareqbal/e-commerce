@@ -17,8 +17,6 @@ class SKeys{
   static const String cloudName = 'dxfhyjzf1';
   static const String uploadPreset = 'upload_image';
   static const String profileFolder = 'Profile Pictures';
-  static const String apiKey = 'YOUR_KEY';
-  static const String apiSecret = 'YOUR_KEY';
 
 
   static const String categoryFolder = 'Category Pictures';

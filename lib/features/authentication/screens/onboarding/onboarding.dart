@@ -16,7 +16,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(OnBoardingController(), permanent: false);
+    final controller = Get.put(OnBoardingController());
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: SSizes.defaultSpace),

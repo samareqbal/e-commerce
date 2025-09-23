@@ -9,6 +9,8 @@ import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/data/repositories/user/user_repository.dart';
 import 'package:upstore/features/authentication/screens/login/login.dart';
 import 'package:upstore/features/personalization/screens/edit_profile/widgets/reauthenticate_user_form.dart';
+import 'package:upstore/utils/constants/apis.dart';
+import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/popups/full_screen_loader.dart';
 import 'package:dio/dio.dart' as dio;
@@ -29,6 +31,7 @@ class UserController extends GetxController {
   final password = TextEditingController();
   final reAuthenticateFormKey = GlobalKey<FormState>();
   RxBool isPasswordVisible = true.obs;
+  RxBool isProfilePictureUploading = false.obs;
 
   final localStorage = GetStorage();
 
@@ -164,6 +167,10 @@ class UserController extends GetxController {
   Future<void> updateUserProfilePicture() async {
     try{
 
+
+      isProfilePictureUploading = true.obs;
+
+
       XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery, maxHeight: 512, maxWidth: 512);
 
       if(image == null){
@@ -171,6 +178,11 @@ class UserController extends GetxController {
       }
 
       File file = File(image.path);
+
+      if(user.value.publicId.isNotEmpty){
+        await _userRepository.deleteImage(user.value.publicId);
+      }
+
 
       dio.Response response = await _userRepository.uploadImage(file);
 
@@ -195,6 +207,11 @@ class UserController extends GetxController {
 
     }catch(e){
       SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
+    }finally{
+      isProfilePictureUploading = false.obs;
     }
   }
+
+
+
 }
