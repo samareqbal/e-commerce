@@ -12,6 +12,7 @@ import 'package:upstore/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../brands/brand_products.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -74,7 +75,10 @@ class StoreScreen extends StatelessWidget {
 
                                         return SizedBox(
                                             width: SSizes.brandCardWidth,
-                                            child: SBrandCard(brand: brand));
+                                            child: SBrandCard(
+                                            onTap: () => Get.to(() => BrandProductsScreen(title: brand.name, brand: brand)),
+                                        brand: brand,
+                                        ));
                                       },
                                     );
                                   }
@@ -93,7 +97,7 @@ class StoreScreen extends StatelessWidget {
             ];
           },
           body: TabBarView(
-            children: controller.featuredCategories.map((category) => SCategoryTab()).toList()
+            children: controller.featuredCategories.map((category) => SCategoryTab(category: category,)).toList()
           ),
         ),
       ),

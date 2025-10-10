@@ -31,6 +31,19 @@ class ProductController extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getAllFeaturedProducts() async {
+    try {
+      List<ProductModel> products =
+          await _repository.fetchAllFeaturedProducts();
+
+      return products;
+    } catch (e) {
+
+      SSnackBarHelpers.errorSnackBar(title: "Error", message: e.toString());
+      return [];
+    }
+  }
+
   String? calculateSalePercentage(double? originalPrice, double? salePrice) {
     if (salePrice == null || salePrice <= 0.0) {
       return null;
@@ -46,35 +59,37 @@ class ProductController extends GetxController {
   }
 
   /// get the product price or price range for variations
-  String getProductPrice(ProductModel product){
+  String getProductPrice(ProductModel product) {
     double smallestPrice = double.infinity;
     double largestPrice = 0.0;
 
     // If no variation exist, return the simple price or sale price
-    if(product.productType == ProductType.single.toString()){
-      return (product.salePrice > 0.0 ? product.salePrice : product.price).toString();
-    }else{
+    if (product.productType == ProductType.single.toString()) {
+      return (product.salePrice > 0.0 ? product.salePrice : product.price)
+          .toString();
+    } else {
       // Calculate smallest and largest  price among variations
-      for(var variation in product.productVariations!){
+      for (var variation in product.productVariations!) {
         // Determine the price to consider (sale price if available, otherwise regular price)
-        double priceToConsider = variation.salePrice > 0.0 ? variation.salePrice : variation.price;
+        double priceToConsider =
+            variation.salePrice > 0.0 ? variation.salePrice : variation.price;
 
-        if(priceToConsider > largestPrice){
+        if (priceToConsider > largestPrice) {
           largestPrice = priceToConsider;
         }
-        if(priceToConsider < smallestPrice){
+        if (priceToConsider < smallestPrice) {
           smallestPrice = priceToConsider;
         }
       }
-      if(smallestPrice.isEqual(largestPrice)){
+      if (smallestPrice.isEqual(largestPrice)) {
         return largestPrice.toStringAsFixed(0);
-      }else{
+      } else {
         return '${largestPrice.toStringAsFixed(0)} - ${STexts.currency}${smallestPrice.toStringAsFixed(0)}';
       }
     }
   }
 
-  String getProductStockStatus(int stock){
+  String getProductStockStatus(int stock) {
     return stock > 0 ? "In Stock" : "Out of Stock";
   }
 }

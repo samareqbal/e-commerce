@@ -19,7 +19,8 @@ import '../../texts/product_title_text.dart';
 
 class SProductCardVertical extends StatelessWidget {
   const SProductCardVertical({
-    super.key, required this.product,
+    super.key,
+    required this.product,
   });
 
   final ProductModel product;
@@ -28,11 +29,12 @@ class SProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = SHelperFunctions.isDarkMode(context);
     final productController = ProductController.instance;
-    String? salePercentage = productController.calculateSalePercentage(product.price, product.salePrice);
+    String? salePercentage = productController.calculateSalePercentage(
+        product.price, product.salePrice);
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailsScreen(product: product)),
       child: Container(
-        height: 180,
+        width: 180,
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           boxShadow: SShadow.verticalProductShadow,
@@ -44,15 +46,23 @@ class SProductCardVertical extends StatelessWidget {
           children: [
             //Thumbnail , Favorite button , discount tag
             SRoundedContainer(
-              width: 180,
+              height: 140,
+              width: double.infinity,
               padding: const EdgeInsets.all(SSizes.sm),
               backgroundColor: dark ? SColors.dark : SColors.light,
               child: Stack(
                 children: [
                   //Thumbnail
-                  Center(child: SRoundedImage(imageUrl: product.thumbnail, isNetworkImage: true)),
+                  Center(
+                      child: SRoundedImage(
+                          imageUrl: product.thumbnail,
+                          // /applyImageRadius: true,
+                          height: double.infinity,
+                          width: double.infinity,
+                          fit: BoxFit.contain,
+                          isNetworkImage: true)),
 
-                  if(salePercentage != null)
+                  if (salePercentage != null)
                     //Discount tag
                     Positioned(
                       top: 12.0,
@@ -69,7 +79,6 @@ class SProductCardVertical extends StatelessWidget {
                       ),
                     ),
 
-
                   //Favourite button
                   Positioned(
                       right: 0,
@@ -82,15 +91,17 @@ class SProductCardVertical extends StatelessWidget {
 
             const SizedBox(height: SSizes.spaceBtwItems / 2),
 
-            Padding(
-              padding: const EdgeInsets.only(left: SSizes.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SProductTitleText(title: product.title, smallSize: true),
-                  const SizedBox(height: SSizes.spaceBtwItems / 2),
-                  SBrandTitleWithVerifyIcon(title: product.brand!.name),
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: SSizes.sm),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SProductTitleText(title: product.title, smallSize: true),
+                    const SizedBox(height: SSizes.spaceBtwItems / 2),
+                    SBrandTitleWithVerifyIcon(title: product.brand!.name),
+                  ],
+                ),
               ),
             ),
             Spacer(),

@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:upstore/data/services/cloudinary_services.dart';
+import 'package:upstore/features/store/models/branc_category_model.dart';
 import 'package:upstore/features/store/models/category_model.dart';
+import 'package:upstore/features/store/models/product_category_model.dart';
 import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
@@ -40,6 +42,43 @@ class CategoryRepository extends GetxController{
       throw SFirebaseExceptions(e.code).message;
     } on FormatException catch (_) {
       throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<void> uploadBrandCategory(List<BrandCategoryModel> brandCategories) async {
+    try{
+
+      for(final brandCategory in brandCategories){
+        await _db.collection(SKeys.brandCategoryCollection).doc().set(brandCategory.toJson());
+      }
+
+    }on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<void> uploadProductCategory(List<ProductCategoryModel> productCategories) async {
+    try{
+
+      for(final productCategory in productCategories){
+        await _db.collection(SKeys.productCategoryCollection).doc().set(productCategory.toJson());
+        print('Uploaded ${productCategory.productId}');
+      }
+
+    }on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const SFormatExceptions();
     } on PlatformException catch (e) {
       throw SPlatformExceptions(e.code).message;
     } catch (e) {

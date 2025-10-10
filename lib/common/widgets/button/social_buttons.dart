@@ -19,10 +19,10 @@ class SSocialButtons extends StatelessWidget {
       children: [
         buildButton(SImages.googleIcon,controller.googleSignIn),
 
-        const SizedBox(width: SSizes.spaceBtwItems),
-
-
-        buildButton(SImages.facebookIcon,(){}),
+        // const SizedBox(width: SSizes.spaceBtwItems),
+        //
+        //
+        // buildButton(SImages.facebookIcon,(){}),
       ],
     );
   }

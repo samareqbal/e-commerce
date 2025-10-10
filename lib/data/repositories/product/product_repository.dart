@@ -58,7 +58,7 @@ class ProductRepository extends GetxController {
                   (entry) => entry.key == variation.image,
                   orElse: () => const MapEntry('', ''));
 
-              if(match.key.isNotEmpty){
+              if (match.key.isNotEmpty) {
                 variation.image = match.value;
               }
             }
@@ -68,7 +68,10 @@ class ProductRepository extends GetxController {
           product.images!.assignAll(imageUrls);
         }
 
-        await _db.collection(SKeys.productsCollection).doc(product.id).set(product.toJson());
+        await _db
+            .collection(SKeys.productsCollection)
+            .doc(product.id)
+            .set(product.toJson());
 
         print('Product ${product.id} uploaded');
       }
@@ -99,6 +102,121 @@ class ProductRepository extends GetxController {
       }
 
       return [];
+    } on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<ProductModel>> fetchAllFeaturedProducts() async {
+    try {
+      final query = await _db
+          .collection(SKeys.productsCollection)
+          .where('isFeatured', isEqualTo: true)
+          .get();
+
+      if (query.docs.isNotEmpty) {
+        List<ProductModel> products = query.docs
+            .map((document) => ProductModel.fromSnapshot(document))
+            .toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+    try {
+      final querySnapshot = await query.get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        List<ProductModel> products = querySnapshot.docs
+            .map((document) => ProductModel.fromQuerySnapshot(document))
+            .toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<ProductModel>> getProductsForBrands({required String brandId, int limit = -1}) async {
+    try {
+      final query = limit == -1
+          ? await _db
+              .collection(SKeys.productsCollection)
+              .where('brand.id', isEqualTo: brandId)
+              .get()
+          : await _db
+              .collection(SKeys.productsCollection)
+              .where('brand.id', isEqualTo: brandId)
+              .limit(limit)
+              .get();
+
+      if (query.docs.isNotEmpty) {
+        List<ProductModel> products = query.docs
+            .map((document) => ProductModel.fromSnapshot(document))
+            .toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
+
+
+  Future<List<ProductModel>> getProductsForCategory({required String categoryId, int limit = -1}) async {
+    try {
+      final query = limit == -1
+          ? await _db
+              .collection(SKeys.productCategoryCollection)
+              .where('categoryId', isEqualTo: categoryId)
+              .get()
+          : await _db
+              .collection(SKeys.productCategoryCollection)
+              .where('categoryId', isEqualTo: categoryId)
+              .limit(limit)
+              .get();
+
+      List<String> productIds = query.docs.map((doc) => doc['productId'] as String).toList();
+      
+      final productQuery = await _db.collection(SKeys.productsCollection).where(FieldPath.documentId,whereIn: productIds).get();
+
+      List<ProductModel> products = productQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+
+      return products;
     } on FirebaseException catch (e) {
       throw SFirebaseExceptions(e.code).message;
     } on FormatException catch (_) {

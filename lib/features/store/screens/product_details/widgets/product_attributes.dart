@@ -35,13 +35,13 @@ class SProductAttributes extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SSectionHeading(title: 'Variation', showActionButton: false),
+                    const SSectionHeading(title: 'Variation', showActionButton: false),
                     const SizedBox(width: SSizes.spaceBtwItems),
                     Column(
                       children: [
                         Row(
                           children: [
-                            SProductTitleText(title: 'Price: ', smallSize: true),
+                            const SProductTitleText(title: 'Price: ', smallSize: true),
 
                             if(controller.selectedVariations.value.salePrice > 0)
                             Text('${STexts.currency}${controller.selectedVariations.value.price.toStringAsFixed(0)}',
@@ -58,7 +58,7 @@ class SProductAttributes extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            SProductTitleText(title: 'Stock: ', smallSize: true),
+                            const SProductTitleText(title: 'Stock: ', smallSize: true),
                             Text(controller.variationStockStatus.value,
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],

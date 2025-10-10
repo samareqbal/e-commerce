@@ -20,11 +20,11 @@ class SChoiceChip extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isColor = SHelperFunctions.getColor(text) != null;
     return ChoiceChip(
-        label: isColor ? SizedBox() : Text(text),
+        label: isColor ? const SizedBox() : Text(text),
         selected: selected,
         onSelected: onSelected,
         labelStyle: TextStyle(color: selected ? SColors.white : null),
-        shape: isColor ? CircleBorder() : null,
+        shape: isColor ? const CircleBorder() : null,
         padding: isColor ? EdgeInsets.zero : null,
         labelPadding: isColor ? EdgeInsets.zero : null,
         backgroundColor: isColor ? SHelperFunctions.getColor(text) : null,

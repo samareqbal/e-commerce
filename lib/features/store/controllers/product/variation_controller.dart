@@ -35,7 +35,7 @@ class VariationController extends GetxController {
       // }
 
       // Assign Selected Variation to Rx
-      this.selectedVariations.value = selectedVariation;
+      selectedVariations.value = selectedVariation;
       getProductVariationStockStatus();
     }catch(e){
       if(e.toString() == 'Bad state: No element'){

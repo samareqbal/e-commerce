@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upstore/data/services/cloudinary_services.dart';
+import 'package:upstore/features/store/models/branc_category_model.dart';
 import 'package:upstore/features/store/models/brand_model.dart';
 import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
@@ -60,6 +61,32 @@ class BrandRepository extends GetxController {
       }
 
       return [];
+
+    }on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+  Future<List<BrandModel>> fetchBrandsForCategory(String categoryId) async {
+    try{
+
+      final query = await _db.collection(SKeys.brandCategoryCollection).where('categoryId', isEqualTo: categoryId).get();
+
+      List<BrandCategoryModel> brandCategories = query.docs.map((doc) => BrandCategoryModel.fromSnapshot(doc)).toList();
+
+
+      List<String> brandIds = brandCategories.map((brandCategory) => brandCategory.brandId).toList();
+
+      final brandQuery = await _db.collection(SKeys.brandsCollection).where(FieldPath.documentId, whereIn: brandIds).limit(2).get();
+
+      List<BrandModel> brands = brandQuery.docs.map((brand) => BrandModel.fromSnapshot(brand)).toList();
+
+      return brands;
 
     }on FirebaseException catch (e) {
       throw SFirebaseExceptions(e.code).message;
