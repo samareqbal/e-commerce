@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upstore/common/widgets/shimmer/shimmer_effect.dart';
 import 'package:upstore/features/store/controllers/banner/banner_controller.dart';
-import 'package:upstore/features/store/controllers/home/home_controller.dart';
 
 import '../../../../../common/widgets/images/rounded_image.dart';
 import '../../../../../utils/constants/sizes.dart';

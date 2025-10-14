@@ -7,7 +7,6 @@ import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../../common/widgets/brands/brand_showcase.dart';
-import '../../../../../utils/constants/images.dart';
 
 class CategoryBrands extends StatelessWidget {
   const CategoryBrands({super.key, required this.category});

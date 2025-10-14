@@ -21,7 +21,7 @@ class UserProfileLogo extends StatelessWidget {
 
 
         if(controller.isProfilePictureUploading.value){
-          return SShimmerEffect(width: 120, height: 120, radius: 120);
+          return const SShimmerEffect(width: 120, height: 120, radius: 120);
         }
 
         return SCircularImage(

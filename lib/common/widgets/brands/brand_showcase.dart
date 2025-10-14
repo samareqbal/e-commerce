@@ -56,9 +56,9 @@ class SBrandShowCase extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: image,
           fit: BoxFit.contain,
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
           progressIndicatorBuilder: (context, url, progress) {
-            return SShimmerEffect(width: 100, height: 100);
+            return const SShimmerEffect(width: 100, height: 100);
           },
         ),
       ),

@@ -7,7 +7,6 @@ import 'package:upstore/features/store/controllers/category/category_controller.
 import 'package:upstore/features/store/screens/brands/all_brands.dart';
 import 'package:upstore/features/store/screens/store/widgets/category_tab.dart';
 import 'package:upstore/features/store/screens/store/widgets/store_primary_header.dart';
-import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';

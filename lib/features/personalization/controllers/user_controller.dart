@@ -9,8 +9,6 @@ import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/data/repositories/user/user_repository.dart';
 import 'package:upstore/features/authentication/screens/login/login.dart';
 import 'package:upstore/features/personalization/screens/edit_profile/widgets/reauthenticate_user_form.dart';
-import 'package:upstore/utils/constants/apis.dart';
-import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/popups/full_screen_loader.dart';
 import 'package:dio/dio.dart' as dio;

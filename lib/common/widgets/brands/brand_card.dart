@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../features/store/models/brand_model.dart';
 import '../../../utils/constants/enums.dart';
-import '../../../utils/constants/images.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/rounded_container.dart';
 import '../images/rounded_image.dart';
@@ -26,7 +25,7 @@ class SBrandCard extends StatelessWidget {
         height: SSizes.brandCardHeight,
         backgroundColor: Colors.transparent,
         showBorder: showBorder,
-        padding: EdgeInsets.all(SSizes.sm),
+        padding: const EdgeInsets.all(SSizes.sm),
         child: Row(
           children: [
             //Brand logo

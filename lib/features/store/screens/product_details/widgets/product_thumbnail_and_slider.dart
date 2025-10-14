@@ -1,15 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:upstore/features/store/controllers/product/image_controller.dart';
 import 'package:upstore/features/store/models/product_model.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
-import '../../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../../common/widgets/images/rounded_image.dart';
+import '../../../../../common/widgets/products/favoritue/favourite_icon.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/images.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 
@@ -89,10 +87,7 @@ class SProductThumbnailAndSlider extends StatelessWidget {
           SAppBar(
             showBackArrow: true,
             actions: [
-              SCircularIcon(
-                icon: Iconsax.heart5,
-                color: Colors.red,
-              )
+              SFavouriteIcon(productId: product.id,)
             ],
           )
         ],

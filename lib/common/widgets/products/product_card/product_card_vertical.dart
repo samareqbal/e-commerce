@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
-import 'package:upstore/common/widgets/icons/circular_icon.dart';
 import 'package:upstore/common/widgets/images/rounded_image.dart';
 import 'package:upstore/features/store/controllers/product/product_controller.dart';
 import 'package:upstore/features/store/models/product_model.dart';
@@ -10,12 +9,12 @@ import 'package:upstore/features/store/screens/product_details/product_details.d
 import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
-import '../../../../utils/constants/images.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../style/shadow.dart';
 import '../../texts/brand_title_with_verify_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
+import '../favoritue/favourite_icon.dart';
 
 class SProductCardVertical extends StatelessWidget {
   const SProductCardVertical({
@@ -71,7 +70,7 @@ class SProductCardVertical extends StatelessWidget {
                         backgroundColor: SColors.yellow.withOpacity(0.8),
                         padding: const EdgeInsets.symmetric(
                             horizontal: SSizes.sm, vertical: SSizes.xs),
-                        child: Text("${salePercentage}%",
+                        child: Text("$salePercentage%",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge!
@@ -83,8 +82,7 @@ class SProductCardVertical extends StatelessWidget {
                   Positioned(
                       right: 0,
                       top: 0,
-                      child: SCircularIcon(
-                          icon: Iconsax.heart5, color: Colors.red))
+                      child: SFavouriteIcon(productId: product.id,))
                 ],
               ),
             ),
@@ -104,7 +102,7 @@ class SProductCardVertical extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -118,13 +116,13 @@ class SProductCardVertical extends StatelessWidget {
                 Container(
                   width: SSizes.iconLg * 1.2,
                   height: SSizes.iconLg * 1.2,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: SColors.primary,
                       borderRadius: BorderRadius.only(
                           bottomRight:
                               Radius.circular(SSizes.productImageRadius),
                           topLeft: Radius.circular(SSizes.cardRadiusMd))),
-                  child: Icon(Iconsax.add, color: SColors.white),
+                  child: const Icon(Iconsax.add, color: SColors.white),
                 )
               ],
             )

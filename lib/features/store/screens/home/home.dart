@@ -8,7 +8,6 @@ import 'package:upstore/features/store/screens/home/widgets/home_app_bar.dart';
 import 'package:upstore/features/store/screens/home/widgets/home_categories.dart';
 import 'package:upstore/common/widgets/custom_shapes/primary_header_container.dart';
 import 'package:upstore/features/store/screens/home/widgets/promo_slider.dart';
-import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/layouts/grid_layout.dart';

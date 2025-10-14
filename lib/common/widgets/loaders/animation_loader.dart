@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,7 +47,7 @@ class SAnimationLoader extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium!.apply(color: SColors.light),
                 ),
               )
-          ) : SizedBox()
+          ) : const SizedBox()
         ],
       ),
     );

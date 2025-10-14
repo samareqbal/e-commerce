@@ -23,7 +23,7 @@ class SCartItem extends StatelessWidget {
           imageUrl: SImages.productImage4a,
           height: 60,
           width: 60,
-          padding: EdgeInsets.all(SSizes.sm),
+          padding: const EdgeInsets.all(SSizes.sm),
           backgroundColor: dark ? SColors.darkerGrey : SColors.light,
         ),
         const SizedBox(width: SSizes.spaceBtwItems),
@@ -31,8 +31,8 @@ class SCartItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SBrandTitleWithVerifyIcon(title: 'iPhone'),
-                SProductTitleText(title: 'iPhone 11 64 Gb', maxLines: 1),
+                const SBrandTitleWithVerifyIcon(title: 'iPhone'),
+                const SProductTitleText(title: 'iPhone 11 64 Gb', maxLines: 1),
                 RichText(
                     text: TextSpan(children: [
                       TextSpan(

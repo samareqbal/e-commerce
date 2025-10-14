@@ -51,9 +51,9 @@ class SCircularImage extends StatelessWidget {
                 imageUrl: image,
                 fit: fit,
                 color: overlayColor,
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
                 progressIndicatorBuilder: (context, url, progress) =>
-                    SShimmerEffect(width: 55, height: 55),
+                    const SShimmerEffect(width: 55, height: 55),
               )
             : Image(fit: fit, image: AssetImage(image)),
       ),

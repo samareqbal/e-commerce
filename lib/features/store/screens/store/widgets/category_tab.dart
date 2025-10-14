@@ -7,13 +7,10 @@ import 'package:upstore/features/store/screens/all_products/all_products.dart';
 import 'package:upstore/features/store/screens/store/widgets/category_brands.dart';
 import 'package:upstore/utils/helpers/cloud_helper_functions.dart';
 
-import '../../../../../common/widgets/brands/brand_showcase.dart';
 import '../../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../../common/widgets/products/product_card/product_card_vertical.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../utils/constants/images.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../models/product_model.dart';
 
 class SCategoryTab extends StatelessWidget {
   const SCategoryTab({

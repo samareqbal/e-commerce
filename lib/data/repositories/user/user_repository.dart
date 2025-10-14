@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/data/services/cloudinary_services.dart';
 import 'package:upstore/features/authentication/models/user_model.dart';
-import 'package:upstore/utils/constants/apis.dart';
 import 'package:upstore/utils/constants/keys.dart';
 
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';

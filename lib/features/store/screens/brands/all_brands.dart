@@ -9,7 +9,6 @@ import 'package:upstore/features/store/controllers/brand/brand_controller.dart';
 import 'package:upstore/features/store/screens/brands/brand_products.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
-import '../../models/brand_model.dart';
 
 class BrandScreen extends StatelessWidget {
   const BrandScreen({super.key});

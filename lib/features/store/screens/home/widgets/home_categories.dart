@@ -4,7 +4,6 @@ import 'package:upstore/common/widgets/shimmer/category_shimmer.dart';
 import 'package:upstore/features/store/controllers/category/category_controller.dart';
 import 'package:upstore/features/store/models/category_model.dart';
 import 'package:upstore/features/store/screens/sub_category/sub_category.dart';
-import 'package:upstore/utils/constants/images.dart';
 
 import '../../../../../common/widgets/image_text/vertical_image_text.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -57,7 +56,7 @@ class SHomeCategories extends StatelessWidget {
                       title: category.name,
                       image: category.image,
                       textColor: SColors.white,
-                      onTap: () => Get.to(() => SubCategoryScreen()),
+                      onTap: () => Get.to(() => SubCategoryScreen(category: category)),
                     );
                   },
                 ),

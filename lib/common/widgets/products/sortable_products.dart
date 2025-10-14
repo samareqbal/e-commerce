@@ -23,8 +23,8 @@ class SSortableProducts extends StatelessWidget {
       children: [
         DropdownButtonFormField(
           value: controller.selectedSortOptions.value,
-            hint: Text('Filter'),
-            decoration: InputDecoration(
+            hint: const Text('Filter'),
+            decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.sort)
             ),
             onChanged: (value) => controller.sortProducts(value!),

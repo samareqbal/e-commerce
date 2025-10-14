@@ -22,7 +22,7 @@ class SPromoCodeField extends StatelessWidget {
         children: [
           Flexible(
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: 'Have a promo code? Enter here',
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -42,7 +42,7 @@ class SPromoCodeField extends StatelessWidget {
                     foregroundColor: dark ? SColors.white.withValues(alpha: 0.5) : SColors.dark.withValues(alpha: 0.5),
                     side: BorderSide(color: SColors.grey.withValues(alpha: 0.1))
                 ),
-                child: Text("Apply")
+                child: const Text("Apply")
             ),
           )
         ],

@@ -11,7 +11,6 @@ import 'package:upstore/features/store/screens/checkout/widgets/billing_payment_
 import 'package:upstore/navigation_menu.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
-import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/button/elevated_button.dart';
 import '../../../../common/widgets/text_fields/promo_code.dart';
@@ -21,7 +20,6 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = SHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: SAppBar(
         showBackArrow: true,

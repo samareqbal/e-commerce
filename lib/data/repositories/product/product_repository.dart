@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:upstore/data/services/cloudinary_services.dart';
 import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
@@ -162,7 +161,8 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<List<ProductModel>> getProductsForBrands({required String brandId, int limit = -1}) async {
+  Future<List<ProductModel>> getProductsForBrands(
+      {required String brandId, int limit = -1}) async {
     try {
       final query = limit == -1
           ? await _db
@@ -194,10 +194,8 @@ class ProductRepository extends GetxController {
     }
   }
 
-
-
-
-  Future<List<ProductModel>> getProductsForCategory({required String categoryId, int limit = -1}) async {
+  Future<List<ProductModel>> getProductsForCategory(
+      {required String categoryId, int limit = -1}) async {
     try {
       final query = limit == -1
           ? await _db
@@ -210,13 +208,46 @@ class ProductRepository extends GetxController {
               .limit(limit)
               .get();
 
-      List<String> productIds = query.docs.map((doc) => doc['productId'] as String).toList();
-      
-      final productQuery = await _db.collection(SKeys.productsCollection).where(FieldPath.documentId,whereIn: productIds).get();
+      List<String> productIds =
+          query.docs.map((doc) => doc['productId'] as String).toList();
 
-      List<ProductModel> products = productQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      final productQuery = await _db
+          .collection(SKeys.productsCollection)
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+
+      List<ProductModel> products = productQuery.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
 
       return products;
+    } on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<ProductModel>> getFavouriteProducts(
+      List<String> productIds) async {
+    try {
+      final query = await _db
+          .collection(SKeys.productsCollection)
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+
+      if (query.docs.isNotEmpty) {
+        List<ProductModel> products = query.docs
+            .map((document) => ProductModel.fromSnapshot(document))
+            .toList();
+        return products;
+      }
+
+      return [];
     } on FirebaseException catch (e) {
       throw SFirebaseExceptions(e.code).message;
     } on FormatException catch (_) {

@@ -10,7 +10,6 @@ import 'package:upstore/features/store/screens/product_details/widgets/product_m
 import 'package:upstore/features/store/screens/product_details/widgets/product_thumbnail_and_slider.dart';
 import 'package:upstore/utils/constants/enums.dart';
 import 'package:upstore/utils/constants/sizes.dart';
-import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/button/elevated_button.dart';
 
@@ -21,7 +20,6 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = SHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

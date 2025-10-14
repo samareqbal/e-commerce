@@ -11,11 +11,11 @@ class SBrandShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      separatorBuilder: (context, index) => SizedBox(width: SSizes.spaceBtwItems),
+      separatorBuilder: (context, index) => const SizedBox(width: SSizes.spaceBtwItems),
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemCount: itemCount,
-      itemBuilder: (context, index) => SShimmerEffect(width: SSizes.brandCardWidth, height: SSizes.brandCardHeight),
+      itemBuilder: (context, index) => const SShimmerEffect(width: SSizes.brandCardWidth, height: SSizes.brandCardHeight),
     );
   }
 }
