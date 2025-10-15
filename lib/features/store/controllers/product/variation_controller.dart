@@ -4,6 +4,8 @@ import 'package:upstore/features/store/models/product_model.dart';
 import 'package:upstore/features/store/models/product_variation_model.dart';
 import 'package:upstore/utils/popups/snackbar_helpers.dart';
 
+import '../cart/cart_controller.dart';
+
 class VariationController extends GetxController {
   static VariationController get instance => Get.find();
 
@@ -29,10 +31,10 @@ class VariationController extends GetxController {
       }
 
       // Show selected variation quantity already in the cart
-      // if(selectedVariation.id.isNotEmpty){
-      //   final cartController = CartController.instance;
-      //   cartController.productQuantityInCart.value = cartController.getVariationQuantityInCart(product.id, selectedVariation.id);
-      // }
+      if(selectedVariation.id.isNotEmpty){
+        final cartController = CartController.instance;
+        cartController.productQuantityInCart.value = cartController.getVariationQuantityInCart(product.id, selectedVariation.id);
+      }
 
       // Assign Selected Variation to Rx
       selectedVariations.value = selectedVariation;

@@ -3,16 +3,19 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/appbar/appbar.dart';
+import 'package:upstore/features/personalization/controllers/address_controller.dart';
 import 'package:upstore/features/personalization/screens/address/add_new_address.dart';
 import 'package:upstore/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/constants/sizes.dart';
+import 'package:upstore/utils/helpers/cloud_helper_functions.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddressController());
     return Scaffold(
       appBar: SAppBar(
         showBackArrow: true,
@@ -22,23 +25,33 @@ class AddressScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: SPadding.screenPadding,
-          child: Column(
-            children: [
-              SSingleAddress(isSelected: true),
-              const SizedBox(height: SSizes.spaceBtwItems),
-              SSingleAddress(isSelected: false),
-              const SizedBox(height: SSizes.spaceBtwItems),
-              SSingleAddress(isSelected: false),
-              const SizedBox(height: SSizes.spaceBtwItems),
-              SSingleAddress(isSelected: false),
-            ],
-          ),
+          child: Obx(
+              () => FutureBuilder(
+                key: Key(controller.refreshData.value.toString()),
+              future: controller.getAllAddress(),
+                builder: (context, snapshot) {
+
+                final widget = SCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+                if(widget != null) return widget;
+
+                final addresses = snapshot.data!;
+
+                  return ListView.separated(
+                    shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return SSingleAddress( onTap: () => controller.selectedAddress(addresses[index]), address: addresses[index],);
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(height: SSizes.spaceBtwItems),
+                      itemCount: addresses.length
+                  );
+                },),
+          )
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(() => AddNewAddressScreen()),
         backgroundColor: SColors.primary,
-        child: Icon(Iconsax.add ,color: SColors.white),
+        child: const Icon(Iconsax.add ,color: SColors.white),
       ),
     );
   }

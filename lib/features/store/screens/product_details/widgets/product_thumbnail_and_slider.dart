@@ -33,7 +33,7 @@ class SProductThumbnailAndSlider extends StatelessWidget {
           SizedBox(
               height: 400,
               child: Padding(
-                  padding: EdgeInsets.all(SSizes.productImageRadius * 2),
+                  padding: const EdgeInsets.all(SSizes.productImageRadius * 2),
                   child: Center(
                       child: Obx(
                         () {
@@ -75,7 +75,7 @@ class SProductThumbnailAndSlider extends StatelessWidget {
                           isNetworkImage: true,
                           onTap: () => controller.selectedProductImage.value = images[index],
                           backgroundColor: dark ? SColors.dark : SColors.white,
-                          padding: EdgeInsets.all(SSizes.sm),
+                          padding: const EdgeInsets.all(SSizes.sm),
                           border: Border.all(color: isImageSelected ? SColors.primary : Colors.transparent),
                           imageUrl: images[index]);
                     }

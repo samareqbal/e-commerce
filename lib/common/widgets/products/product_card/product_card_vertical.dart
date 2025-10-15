@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:upstore/common/widgets/button/add_to_cart_button.dart';
 import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/common/widgets/images/rounded_image.dart';
 import 'package:upstore/features/store/controllers/product/product_controller.dart';
@@ -113,17 +114,7 @@ class SProductCardVertical extends StatelessWidget {
                     price: productController.getProductPrice(product),
                   ),
                 ),
-                Container(
-                  width: SSizes.iconLg * 1.2,
-                  height: SSizes.iconLg * 1.2,
-                  decoration: const BoxDecoration(
-                      color: SColors.primary,
-                      borderRadius: BorderRadius.only(
-                          bottomRight:
-                              Radius.circular(SSizes.productImageRadius),
-                          topLeft: Radius.circular(SSizes.cardRadiusMd))),
-                  child: const Icon(Iconsax.add, color: SColors.white),
-                )
+                SAddToCartButton(product: product)
               ],
             )
           ],

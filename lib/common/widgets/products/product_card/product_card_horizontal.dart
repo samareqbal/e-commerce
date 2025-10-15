@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:upstore/common/widgets/button/add_to_cart_button.dart';
 import 'package:upstore/common/widgets/texts/brand_title_with_verify_icon.dart';
 import 'package:upstore/common/widgets/texts/product_price_text.dart';
 import 'package:upstore/features/store/models/product_model.dart';
@@ -80,7 +81,7 @@ class SProductCardHorizontal extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 170,
+              width: 172,
               child: Padding(
                 padding: const EdgeInsets.only(left: SSizes.sm,top: SSizes.sm),
                 child: Column(
@@ -101,17 +102,7 @@ class SProductCardHorizontal extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(child: SProductPriceText(price: productController.getProductPrice(product))),
-                        Container(
-                          width: SSizes.iconLg * 1.2,
-                          height: SSizes.iconLg * 1.2,
-                          decoration: BoxDecoration(
-                              color: SColors.primary,
-                              borderRadius: BorderRadius.only(
-                                  bottomRight:
-                                  Radius.circular(SSizes.productImageRadius),
-                                  topLeft: Radius.circular(SSizes.cardRadiusMd))),
-                          child: Icon(Iconsax.add, color: SColors.white),
-                        )
+                        SAddToCartButton(product: product)
                       ],
                     )
                   ],

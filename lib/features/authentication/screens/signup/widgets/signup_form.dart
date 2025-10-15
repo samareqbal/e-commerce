@@ -50,7 +50,7 @@ class SSignupForm extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: SSizes.spaceBtwItems),
+          const SizedBox(height: SSizes.spaceBtwItems),
 
           //Email
           TextFormField(
@@ -85,7 +85,7 @@ class SSignupForm extends StatelessWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) => SValidator.validatePassword(value),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Iconsax.password_check),
+                  prefixIcon:  Icon(Iconsax.password_check),
                   labelText: STexts.password,
                   suffixIcon: IconButton(
                       onPressed: () => controller.isPasswordVisible.toggle(),

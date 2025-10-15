@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:upstore/features/store/controllers/cart/cart_controller.dart';
 
 import '../../../../../common/widgets/products/cart/cart_item.dart';
 import '../../../../../common/widgets/products/cart/product_quantity_with_add_remove.dart';
@@ -7,34 +9,51 @@ import '../../../../../utils/constants/sizes.dart';
 
 class SCartItems extends StatelessWidget {
   const SCartItems({
-    super.key, this.showAddRemoveButtons = true,
+    super.key,
+    this.showAddRemoveButtons = true,
   });
 
   final bool showAddRemoveButtons;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      separatorBuilder: (context, index) =>
-      const SizedBox(height: SSizes.spaceBtwSections),
-      itemCount: 2,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            SCartItem(),
-            if(showAddRemoveButtons) const SizedBox(width: SSizes.spaceBtwItems),
-            if(showAddRemoveButtons) Row(
+    final controller = CartController.instance;
+    return Obx(
+      () => ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (context, index) =>
+            const SizedBox(height: SSizes.spaceBtwSections),
+        itemCount: controller.cartItems.length,
+        itemBuilder: (context, index) {
+          return Obx(() {
+            final cartItem = controller.cartItems[index];
+
+            return Column(
               children: [
-                const SizedBox(width: 70),
-                SProductQuantityWithAddRemove(),
-                Spacer(),
-                SProductPriceText(price: '7000')
+                SCartItem(cartItem: cartItem),
+                if (showAddRemoveButtons)
+                  const SizedBox(width: SSizes.spaceBtwItems),
+                if (showAddRemoveButtons)
+                  Row(
+                    children: [
+                      const SizedBox(width: 70),
+                      SProductQuantityWithAddRemove(
+                        quantity: cartItem.quantity,
+                        add: () => controller.addOneToCart(cartItem),
+                        remove: () => controller.removeOneFromCart(cartItem),
+                      ),
+                      Spacer(),
+                      SProductPriceText(
+                          price: (cartItem.price * cartItem.quantity)
+                              .toStringAsFixed(0))
+                    ],
+                  )
               ],
-            )
-          ],
-        );
-      },
+            );
+          });
+        },
+      ),
     );
   }
 }

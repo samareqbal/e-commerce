@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upstore/features/store/models/cart_item_model.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -10,9 +11,10 @@ import '../../texts/product_title_text.dart';
 
 class SCartItem extends StatelessWidget {
   const SCartItem({
-    super.key,
+    super.key, required this.cartItem,
   });
 
+  final CartItemModel cartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,8 @@ class SCartItem extends StatelessWidget {
     return Row(
       children: [
         SRoundedImage(
-          imageUrl: SImages.productImage4a,
+          imageUrl: cartItem.image ?? '',
+          isNetworkImage: true,
           height: 60,
           width: 60,
           padding: const EdgeInsets.all(SSizes.sm),
@@ -31,23 +34,17 @@ class SCartItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SBrandTitleWithVerifyIcon(title: 'iPhone'),
-                const SProductTitleText(title: 'iPhone 11 64 Gb', maxLines: 1),
+                 SBrandTitleWithVerifyIcon(title: cartItem.brandName ?? ''),
+                 SProductTitleText(title: cartItem.title, maxLines: 1),
                 RichText(
-                    text: TextSpan(children: [
+                    text: TextSpan(children: (cartItem.selectedVariation ?? {}).entries.map((item) => TextSpan(children: [
                       TextSpan(
-                          text: 'Color ',
+                          text: '${item.key} ',
                           style: Theme.of(context).textTheme.bodySmall),
                       TextSpan(
-                          text: 'Green ',
+                          text: '${item.value} ',
                           style: Theme.of(context).textTheme.bodyLarge),
-                      TextSpan(
-                          text: 'Storage ',
-                          style: Theme.of(context).textTheme.bodySmall),
-                      TextSpan(
-                          text: '64GB ',
-                          style: Theme.of(context).textTheme.bodyLarge),
-                    ]))
+                    ])).toList()))
               ],
             ))
       ],

@@ -35,7 +35,7 @@ class ImageController extends GetxController{
     Get.to(fullscreenDialog: true , () => Dialog.fullscreen(
       child: Column(
         children: [
-          Padding(padding: EdgeInsets.symmetric(vertical: SSizes.defaultSpace * 2, horizontal: SSizes.defaultSpace),
+          Padding(padding: const EdgeInsets.symmetric(vertical: SSizes.defaultSpace * 2, horizontal: SSizes.defaultSpace),
           child: CachedNetworkImage(imageUrl: image),),
 
           const SizedBox(height: SSizes.spaceBtwSections),
@@ -44,7 +44,7 @@ class ImageController extends GetxController{
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 150,
-              child: OutlinedButton(onPressed: () => Get.back(), child: Text('Close')),
+              child: OutlinedButton(onPressed: () => Get.back(), child: const Text('Close')),
             ),
           )
         ],
