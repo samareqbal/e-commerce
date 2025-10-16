@@ -26,32 +26,29 @@ class SCartItems extends StatelessWidget {
             const SizedBox(height: SSizes.spaceBtwSections),
         itemCount: controller.cartItems.length,
         itemBuilder: (context, index) {
-          return Obx(() {
-            final cartItem = controller.cartItems[index];
-
-            return Column(
-              children: [
-                SCartItem(cartItem: cartItem),
-                if (showAddRemoveButtons)
-                  const SizedBox(width: SSizes.spaceBtwItems),
-                if (showAddRemoveButtons)
-                  Row(
-                    children: [
-                      const SizedBox(width: 70),
-                      SProductQuantityWithAddRemove(
-                        quantity: cartItem.quantity,
-                        add: () => controller.addOneToCart(cartItem),
-                        remove: () => controller.removeOneFromCart(cartItem),
-                      ),
-                      Spacer(),
-                      SProductPriceText(
-                          price: (cartItem.price * cartItem.quantity)
-                              .toStringAsFixed(0))
-                    ],
-                  )
-              ],
-            );
-          });
+          final cartItem = controller.cartItems[index];
+          return Column(
+            children: [
+              SCartItem(cartItem: cartItem),
+              if (showAddRemoveButtons)
+                const SizedBox(width: SSizes.spaceBtwItems),
+              if (showAddRemoveButtons)
+                Row(
+                  children: [
+                    const SizedBox(width: 70),
+                    SProductQuantityWithAddRemove(
+                      quantity: cartItem.quantity,
+                      add: () => controller.addOneToCart(cartItem),
+                      remove: () => controller.removeOneFromCart(cartItem),
+                    ),
+                    Spacer(),
+                    SProductPriceText(
+                        price: (cartItem.price * cartItem.quantity)
+                            .toStringAsFixed(0))
+                  ],
+                )
+            ],
+          );
         },
       ),
     );

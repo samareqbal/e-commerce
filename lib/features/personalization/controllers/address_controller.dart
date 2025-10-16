@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upstore/common/widgets/loaders/circular_loader.dart';
+import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/data/repositories/address/address_repository.dart';
 import 'package:upstore/features/personalization/models/address_model.dart';
+import 'package:upstore/features/personalization/screens/address/widgets/single_address.dart';
+import 'package:upstore/utils/constants/sizes.dart';
+import 'package:upstore/utils/helpers/cloud_helper_functions.dart';
 import 'package:upstore/utils/helpers/network_manager.dart';
 import 'package:upstore/utils/popups/full_screen_loader.dart';
 import 'package:upstore/utils/popups/snackbar_helpers.dart';
@@ -130,5 +134,36 @@ class AddressController extends GetxController {
       Get.back();
       SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
     }
+  }
+
+  Future<void> selectNewAddressBottomSheet(BuildContext context){
+    return showModalBottomSheet(context: context, builder: (context) => SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(SSizes.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SSectionHeading(title: 'Select Address', showActionButton: false),
+            const SizedBox(height: SSizes.spaceBtwItems),
+            FutureBuilder(future: getAllAddress(), builder: (context, snapshot) {
+
+              final widget = SCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+              if(widget != null) return widget;
+
+              return ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                  itemBuilder: (context, index) => SSingleAddress(address: snapshot.data![index], onTap: () async {
+                    await selectAddress(snapshot.data![index]);
+                    Get.back();
+                  }),
+                  separatorBuilder: (context, index) => const SizedBox(height: SSizes.spaceBtwItems),
+                  itemCount: snapshot.data!.length
+              );
+            },)
+          ],
+        ),
+      ),
+    ));
   }
 }

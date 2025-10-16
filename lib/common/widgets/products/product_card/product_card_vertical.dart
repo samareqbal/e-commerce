@@ -90,11 +90,12 @@ class SProductCardVertical extends StatelessWidget {
 
             const SizedBox(height: SSizes.spaceBtwItems / 2),
 
-            Expanded(
+            Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(left: SSizes.sm),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //mainAxisSize: MainAxisSize.min,
                   children: [
                     SProductTitleText(title: product.title, smallSize: true),
                     const SizedBox(height: SSizes.spaceBtwItems / 2),
@@ -103,7 +104,7 @@ class SProductCardVertical extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
+            //const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

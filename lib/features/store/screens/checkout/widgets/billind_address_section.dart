@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/features/personalization/controllers/address_controller.dart';
 import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
@@ -8,31 +10,47 @@ class SBillingAddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddressController());
+    controller.getAllAddress();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SSectionHeading(title: 'Billing Address', buttonTitle: 'Change', onPressed: (){}),
+        SSectionHeading(title: 'Billing Address', buttonTitle: 'Change', onPressed: () => controller.selectNewAddressBottomSheet(context)),
 
-        Text('Samar Eqbal' , style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: SSizes.spaceBtwItems/2),
+        Obx((){
+          final address = controller.selectedAddress.value;
+          if(address.id.isEmpty){
+            return const Text('Select Address');
+          }
 
-        Row(
-          children: [
-            Icon(Icons.phone, size: SSizes.iconSm, color: SColors.darkerGrey),
-            const SizedBox(width: SSizes.spaceBtwItems),
-            Text('+91 9709280453')
-          ],
-        ),
 
-        const SizedBox(height: SSizes.spaceBtwItems/2),
 
-        Row(
-          children: [
-            Icon(Icons.location_history, size: SSizes.iconSm, color: SColors.darkerGrey),
-            const SizedBox(width: SSizes.spaceBtwItems),
-            Expanded(child: Text('C1 Building, Hari Ganga Society, Yerwada, Pune',softWrap: true))
-          ],
-        )
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text( address.name, style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: SSizes.spaceBtwItems/2),
+
+              Row(
+                children: [
+                  const Icon(Icons.phone, size: SSizes.iconSm, color: SColors.darkerGrey),
+                  const SizedBox(width: SSizes.spaceBtwItems),
+                  Text(address.phoneNumber)
+                ],
+              ),
+
+              const SizedBox(height: SSizes.spaceBtwItems/2),
+
+              Row(
+                children: [
+                  const Icon(Icons.location_history, size: SSizes.iconSm, color: SColors.darkerGrey),
+                  const SizedBox(width: SSizes.spaceBtwItems),
+                  Expanded(child: Text(address.toString(),softWrap: true))
+                ],
+              )
+            ],
+          );
+        })
       ],
     );
   }

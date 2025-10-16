@@ -11,6 +11,8 @@ import 'package:upstore/features/personalization/screens/profile/widgets/user_pr
 import 'package:upstore/features/store/screens/order/order.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 
+import '../../../store/screens/cart/cart.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -42,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Iconsax.safe_home,
                   ),
                   SettingsMenuTile(
-                    onTap: () {},
+                    onTap: () => Get.to(() => CartScreen()),
                     title: 'My Cart',
                     subTitle: 'Add, remove products and move to checkout',
                     icon: Iconsax.shopping_cart,

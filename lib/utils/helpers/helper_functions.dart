@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 class SHelperFunctions {
@@ -75,5 +76,9 @@ class SHelperFunctions {
     await file.writeAsBytes(byteData.buffer.asUint8List());
 
     return file;
+  }
+
+  static String getFormattedDate(DateTime date, {String format = 'dd MMM yyyy'}) {
+    return DateFormat(format).format(date);
   }
 }

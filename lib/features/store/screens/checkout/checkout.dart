@@ -4,6 +4,8 @@ import 'package:upstore/common/style/padding.dart';
 import 'package:upstore/common/widgets/appbar/appbar.dart';
 import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/common/widgets/screens/success_screen.dart';
+import 'package:upstore/features/store/controllers/cart/cart_controller.dart';
+import 'package:upstore/features/store/controllers/order/order_controller.dart';
 import 'package:upstore/features/store/screens/cart/widgets/cart_items.dart';
 import 'package:upstore/features/store/screens/checkout/widgets/billind_address_section.dart';
 import 'package:upstore/features/store/screens/checkout/widgets/billing_amount_section.dart';
@@ -11,15 +13,22 @@ import 'package:upstore/features/store/screens/checkout/widgets/billing_payment_
 import 'package:upstore/navigation_menu.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
+import 'package:upstore/utils/helpers/pricing_calculator.dart';
+import 'package:upstore/utils/popups/snackbar_helpers.dart';
 
 import '../../../../common/widgets/button/elevated_button.dart';
 import '../../../../common/widgets/text_fields/promo_code.dart';
+import '../../../../utils/constants/texts.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = CartController.instance;
+    double subTotal = controller.totalCartPrice.value;
+    double total = SPricingCalculator.calculateTotalPrice(subTotal, "India");
+    final orderController = Get.put(OrderController());
     return Scaffold(
       appBar: SAppBar(
         showBackArrow: true,
@@ -56,12 +65,8 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(SSizes.defaultSpace),
         child: SElevatedButton(
-            onPressed: () => Get.to(() => SuccessScreen(
-                title: 'Payment Success',
-                subTitle: 'Item will be shipped soon',
-                image: SImages.successfulPaymentIcon,
-                onTap: () => Get.offAll(() => NavigationMenu()))),
-            child: Text('Checkout')),
+            onPressed: subTotal > 0 ? () => orderController.processOrder(total) : () => SSnackBarHelpers.errorSnackBar(title: 'Empty Cart', message: 'Add items to cart'),
+            child: Text('Checkout ${STexts.currency}$total')),
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'package:upstore/features/store/controllers/cart/cart_controller.dart';
 import 'package:upstore/features/store/screens/cart/widgets/cart_items.dart';
 import 'package:upstore/features/store/screens/checkout/checkout.dart';
 import 'package:upstore/utils/constants/sizes.dart';
+import 'package:upstore/utils/constants/texts.dart';
 
 import '../../../../utils/constants/images.dart';
 
@@ -30,7 +31,7 @@ class CartScreen extends StatelessWidget {
           text: 'Cart is Empty',
           animation: SImages.cartEmptyAnimation,
           showActionButton: true,
-          actionText: "Lets's fill it!",
+          actionText: "Let's fill it!",
           onActionPressed: () => Get.back(),
         );
         if (controller.cartItems.isEmpty) {
@@ -51,7 +52,7 @@ class CartScreen extends StatelessWidget {
           padding: const EdgeInsets.all(SSizes.defaultSpace),
           child: SElevatedButton(
               onPressed: () => Get.to(() => CheckoutScreen()),
-              child: Text('Checkout \$${controller.totalCartPrice.value.toStringAsFixed(2)}')),
+              child: Text('Checkout ${STexts.currency}${controller.totalCartPrice.value.toStringAsFixed(2)}')),
         );
       }),
     );

@@ -18,8 +18,8 @@ class SAddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = CartController.instance;
-    final dark = SHelperFunctions.isDarkMode(context);
+    final controller = Get.put(CartController());
+    // final dark = SHelperFunctions.isDarkMode(context);
     return InkWell(onTap: () {
       if (product.productType == ProductType.single.toString()) {
         CartItemModel cartItem = controller.convertToCartItem(product, 1);
@@ -34,7 +34,7 @@ class SAddToCartButton extends StatelessWidget {
           width: SSizes.iconLg ,
           height: SSizes.iconLg ,
           decoration:  BoxDecoration(
-              color: productQuantityInCart > 0 ? dark ? SColors.dark : SColors.grey : SColors.primary,
+              color: productQuantityInCart > 0 ?  SColors.dark : SColors.primary,
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(SSizes.productImageRadius),
                   topLeft: Radius.circular(SSizes.cardRadiusMd))),
@@ -42,7 +42,7 @@ class SAddToCartButton extends StatelessWidget {
             child: productQuantityInCart > 0
                 ? Text(
                     productQuantityInCart.toString(),
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: SColors.white),
                   )
                 : const Icon(Iconsax.add, color: SColors.white),
           ));
