@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/style/shadow.dart';
+import 'package:upstore/features/store/screens/search_store/search_store.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -21,26 +23,32 @@ class SSearchBar extends StatelessWidget {
         bottom: 0,
         right: SSizes.spaceBtwSections,
         left: SSizes.spaceBtwSections,
-        child: Container(
-          height: SSizes.searchBarHeight,
-          padding: const EdgeInsets.symmetric(horizontal: SSizes.md),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SSizes.borderRadiusLg),
-              color: dark ? SColors.dark : SColors.light,
-              boxShadow: SShadow.searchBarShadow
-          ),
-          child: Row(
-            children: [
-              const Icon(
-                Iconsax.search_normal,
-                color: SColors.darkGrey,
+        child: GestureDetector(
+          onTap: () => Get.to(() => SearchStoreScreen()),
+          child: Hero(
+            tag: 'search_animation',
+            child: Container(
+              height: SSizes.searchBarHeight,
+              padding: const EdgeInsets.symmetric(horizontal: SSizes.md),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SSizes.borderRadiusLg),
+                  color: dark ? SColors.dark : SColors.light,
+                  boxShadow: SShadow.searchBarShadow
               ),
-              const SizedBox(width: SSizes.spaceBtwItems),
-              Text(
-                  STexts.searchBarTitle,
-                  style: Theme.of(context).textTheme.bodySmall
-              )
-            ],
+              child: Row(
+                children: [
+                  const Icon(
+                    Iconsax.search_normal,
+                    color: SColors.darkGrey,
+                  ),
+                  const SizedBox(width: SSizes.spaceBtwItems),
+                  Text(
+                      STexts.searchBarTitle,
+                      style: Theme.of(context).textTheme.bodySmall
+                  )
+                ],
+              ),
+            ),
           ),
         )
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/widgets/button/add_to_cart_button.dart';
 import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/common/widgets/images/rounded_image.dart';

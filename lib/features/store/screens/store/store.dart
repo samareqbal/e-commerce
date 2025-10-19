@@ -35,7 +35,7 @@ class StoreScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       //Header
-                      SStorePrimaryHeader(),
+                      const SStorePrimaryHeader(),
 
                       const SizedBox(height: SSizes.spaceBtwItems),
 
@@ -45,7 +45,7 @@ class StoreScreen extends StatelessWidget {
                             horizontal: SSizes.defaultSpace),
                         child: Column(
                           children: [
-                            SSectionHeading(title: 'Brands', onPressed: () => Get.to(() => BrandScreen())),
+                            SSectionHeading(title: 'Brands', onPressed: () => Get.to(() => const BrandScreen())),
 
                             //Brand Card
                             SizedBox(
@@ -55,11 +55,11 @@ class StoreScreen extends StatelessWidget {
 
 
                                     if(brandController.isLoading.value){
-                                      return SBrandShimmer();
+                                      return const SBrandShimmer();
                                     }
 
                                     if(brandController.featuredBrands.isEmpty){
-                                      return Text('Brands not found');
+                                      return const Text('Brands not found');
                                     }
 
                                     return ListView.separated(

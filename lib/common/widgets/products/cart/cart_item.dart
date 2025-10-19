@@ -3,7 +3,6 @@ import 'package:upstore/features/store/models/cart_item_model.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/images.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../images/rounded_image.dart';
 import '../../texts/brand_title_with_verify_icon.dart';

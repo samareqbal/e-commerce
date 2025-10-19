@@ -30,7 +30,7 @@ class SHomeAppBar extends StatelessWidget {
 
           Obx(() {
             if (controller.profileLoading.value) {
-              return SShimmerEffect(width: 80, height: 15);
+              return const SShimmerEffect(width: 80, height: 15);
             }
 
             return Text(controller.user.value.fullName,

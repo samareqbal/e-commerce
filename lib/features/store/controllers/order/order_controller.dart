@@ -38,31 +38,28 @@ class OrderController extends GetxController {
           userId: userId,
           paymentMethod: checkoutController.selectedPaymentMethod.value.name,
           address: addressController.selectedAddress.value,
-          deliveryDate: DateTime.now()
-      );
+          deliveryDate: DateTime.now());
 
       await _repository.saveOrder(order);
 
       cartController.clearCart();
-
 
       Get.to(() => SuccessScreen(
           title: 'Payment Success',
           subTitle: 'Item will be shipped soon',
           image: SImages.successfulPaymentIcon,
           onTap: () => Get.offAll(() => NavigationMenu())));
-
-
     } catch (e) {
-      SSnackBarHelpers.errorSnackBar(title: 'Order Failed', message: e.toString());
+      SSnackBarHelpers.errorSnackBar(
+          title: 'Order Failed', message: e.toString());
     }
   }
 
   Future<List<OrderModel>> fetchUserOrders() async {
-    try{
+    try {
       final orders = _repository.fetchUserOrders();
       return orders;
-    }catch(e){
+    } catch (e) {
       SSnackBarHelpers.errorSnackBar(title: 'Unable to fetch orders');
       return [];
     }

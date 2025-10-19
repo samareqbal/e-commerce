@@ -12,16 +12,10 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: SAppBar(
         showBackArrow: true,
-        title: Text('My Orders', style: Theme
-            .of(context)
-            .textTheme
-            .headlineMedium),
+        title: Text('My Orders',
+            style: Theme.of(context).textTheme.headlineMedium),
       ),
-
-      body: Padding(
-          padding: SPadding.screenPadding,
-          child: SOrderListItems()
-      ),
+      body: Padding(padding: SPadding.screenPadding, child: SOrderListItems()),
     );
   }
 }

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/features/store/models/payment_method_model.dart';
-import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/constants/enums.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
-import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../screens/checkout/widgets/payment_tile.dart';
 

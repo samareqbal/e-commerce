@@ -25,7 +25,7 @@ class SCategoryTab extends StatelessWidget {
     final controller = CategoryController.instance;
     return ListView(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: SSizes.defaultSpace),

@@ -85,6 +85,29 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> fetchAllProducts() async {
+    try{
+
+      final query = await _db.collection(SKeys.productsCollection).get();
+
+      if(query.docs.isNotEmpty){
+        List<ProductModel> products = query.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+        return products;
+      }
+
+      return [];
+
+    }on FirebaseException catch (e) {
+      throw SFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatExceptions();
+    } on PlatformException catch (e) {
+      throw SPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
   Future<List<ProductModel>> fetchFeaturedProducts() async {
     try {
       final query = await _db

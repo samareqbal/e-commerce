@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:upstore/common/widgets/button/add_to_cart_button.dart';
 import 'package:upstore/common/widgets/texts/brand_title_with_verify_icon.dart';
 import 'package:upstore/common/widgets/texts/product_price_text.dart';
@@ -10,7 +9,6 @@ import 'package:upstore/utils/helpers/helper_functions.dart';
 import '../../../../features/store/controllers/product/product_controller.dart';
 import '../../../../features/store/screens/product_details/product_details.dart';
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/images.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../custom_shapes/rounded_container.dart';
 import '../../images/rounded_image.dart';

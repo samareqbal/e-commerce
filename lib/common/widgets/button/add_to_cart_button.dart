@@ -6,7 +6,6 @@ import 'package:upstore/features/store/models/cart_item_model.dart';
 import 'package:upstore/features/store/models/product_model.dart';
 import 'package:upstore/features/store/screens/product_details/product_details.dart';
 import 'package:upstore/utils/constants/enums.dart';
-import 'package:upstore/utils/helpers/helper_functions.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';

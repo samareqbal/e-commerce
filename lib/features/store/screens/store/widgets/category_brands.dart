@@ -39,7 +39,7 @@ class CategoryBrands extends StatelessWidget {
 
           return ListView.builder(
             itemCount: brands.length,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final brand = brands[index];

@@ -7,7 +7,6 @@ import 'package:upstore/utils/constants/colors.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/helpers/helper_functions.dart';
 
-import '../../../../../utils/constants/images.dart';
 
 class SBillingPaymentSection extends StatelessWidget {
   const SBillingPaymentSection({super.key});

@@ -21,15 +21,15 @@ class CartController extends GetxController {
 
   final variationController = VariationController.instance;
 
-  CartController(){
+  CartController() {
     loadCartItems();
   }
 
-  void loadCartItems(){
+  void loadCartItems() {
     List<dynamic>? storedCartItems = _storage.read(SKeys.cartItemsKey);
-    print(storedCartItems);
-    if(storedCartItems != null){
-      cartItems.assignAll(storedCartItems.map((item) => CartItemModel.fromJson(item as Map<String,dynamic>)));
+    if (storedCartItems != null) {
+      cartItems.assignAll(storedCartItems
+          .map((item) => CartItemModel.fromJson(item as Map<String, dynamic>)));
       cartItems.refresh();
       updateCartTotals();
     }
@@ -156,28 +156,30 @@ class CartController extends GetxController {
     return itemQuantity;
   }
 
-  int getVariationQuantityInCart(String productId, String variationId){
-    CartItemModel quantity = cartItems.firstWhere((item) => item.productId == productId && item.variationId == variationId,
-      orElse: () => CartItemModel.empty()
-    );
+  int getVariationQuantityInCart(String productId, String variationId) {
+    CartItemModel quantity = cartItems.firstWhere(
+        (item) =>
+            item.productId == productId && item.variationId == variationId,
+        orElse: () => CartItemModel.empty());
 
     return quantity.quantity;
   }
 
-  void clearCart(){
+  void clearCart() {
     productQuantityInCart.value = 0;
     cartItems.clear();
     updateCart();
   }
 
-  void updateAlreadyAddedProductCount(ProductModel product){
-    if(product.productType == ProductType.single.toString()){
+  void updateAlreadyAddedProductCount(ProductModel product) {
+    if (product.productType == ProductType.single.toString()) {
       productQuantityInCart.value = getProductQuantityInCart(product.id);
-    }else{
+    } else {
       String variationId = variationController.selectedVariations.value.id;
-      if(variationId.isNotEmpty){
-        productQuantityInCart.value = getVariationQuantityInCart(product.id, variationId);
-      }else{
+      if (variationId.isNotEmpty) {
+        productQuantityInCart.value =
+            getVariationQuantityInCart(product.id, variationId);
+      } else {
         productQuantityInCart.value = 0;
       }
     }
