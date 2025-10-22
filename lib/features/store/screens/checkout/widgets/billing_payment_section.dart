@@ -14,7 +14,7 @@ class SBillingPaymentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = SHelperFunctions.isDarkMode(context);
-    final controller = Get.put(CheckoutController());
+    final controller = CheckoutController.instance;
     return Column(
       children: [
         SSectionHeading(title: 'Payment Method', buttonTitle: 'Change', onPressed: () => controller.selectPaymentMethod(context)),
@@ -27,7 +27,7 @@ class SBillingPaymentSection extends StatelessWidget {
                 width: 60,
                 height: 35,
                 backgroundColor: dark ? SColors.darkerGrey : SColors.light,
-                padding: EdgeInsets.all(SSizes.sm),
+                padding: const EdgeInsets.all(SSizes.sm),
                 child: Image(image: AssetImage(controller.selectedPaymentMethod.value.image), fit: BoxFit.contain),
               ),
 

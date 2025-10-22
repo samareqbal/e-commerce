@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/data/services/stripe_services.dart';
+import 'package:upstore/features/store/controllers/order/order_controller.dart';
 import 'package:upstore/features/store/models/payment_method_model.dart';
 import 'package:upstore/utils/constants/enums.dart';
 import 'package:upstore/utils/constants/images.dart';
 import 'package:upstore/utils/constants/sizes.dart';
+import 'package:upstore/utils/popups/snackbar_helpers.dart';
 
 import '../../screens/checkout/widgets/payment_tile.dart';
 
@@ -12,6 +15,10 @@ class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
 
   Rx<PaymentMethodModel> selectedPaymentMethod = PaymentMethodModel.empty().obs;
+
+  final _orderController = Get.put(OrderController());
+  final _stripeServices = Get.put(StripeServices());
+  final isPaymentProcessing = false.obs;
 
 
   @override
@@ -41,9 +48,9 @@ class CheckoutController extends GetxController {
                     const SizedBox(height: SSizes.spaceBtwItems/2),
                     SPaymentTile(
                         paymentMethod: PaymentMethodModel(
-                            name: 'MasterCard',
-                            image: SImages.masterCard,
-                            paymentMethod: PaymentMethods.masterCard)),
+                            name: 'Credit/Debit Card',
+                            image: SImages.creditCard,
+                            paymentMethod: PaymentMethods.creditCard)),
                     const SizedBox(height: SSizes.spaceBtwItems/2),
                     SPaymentTile(
                         paymentMethod: PaymentMethodModel(
@@ -57,12 +64,12 @@ class CheckoutController extends GetxController {
                             image: SImages.googlePay,
                             paymentMethod: PaymentMethods.googlePay)),
                     const SizedBox(height: SSizes.spaceBtwItems/2),
-                    SPaymentTile(
-                        paymentMethod: PaymentMethodModel(
-                            name: 'Apple Pay',
-                            image: SImages.applePay,
-                            paymentMethod: PaymentMethods.applePay)),
-                    const SizedBox(height: SSizes.spaceBtwItems/2),
+                    // SPaymentTile(
+                    //     paymentMethod: PaymentMethodModel(
+                    //         name: 'Apple Pay',
+                    //         image: SImages.applePay,
+                    //         paymentMethod: PaymentMethods.applePay)),
+                    // const SizedBox(height: SSizes.spaceBtwItems/2),
                     SPaymentTile(
                         paymentMethod: PaymentMethodModel(
                             name: 'PayPal',
@@ -73,6 +80,30 @@ class CheckoutController extends GetxController {
                 ),
               ),
             ));
+  }
+
+  Future<void> checkout(double totalAmount) async {
+    try{
+
+      isPaymentProcessing.value = true;
+      PaymentMethods paymentMethods = selectedPaymentMethod.value.paymentMethod;
+
+      switch(paymentMethods){
+        case PaymentMethods.creditCard:
+          await _stripeServices.initPaymentSheet('USD', totalAmount.toInt());
+          await _stripeServices.showPaymentSheet();
+        case PaymentMethods.cashOnDelivery:
+          break;
+        default:
+          throw 'Payment method not supported';
+      }
+      isPaymentProcessing.value = false;
+      await _orderController.processOrder(totalAmount);
+
+    }catch(e){
+      isPaymentProcessing.value = false;
+      SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
+    }
   }
 }
 

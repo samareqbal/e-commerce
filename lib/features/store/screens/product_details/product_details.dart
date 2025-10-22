@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:readmore/readmore.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/features/store/models/product_model.dart';
@@ -39,9 +37,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     const SizedBox(height: SSizes.spaceBtwSections),
                   ],
 
-                  SElevatedButton(onPressed: (){}, child: Text('Checkout')),
+                  SElevatedButton(onPressed: (){}, child: const Text('Checkout')),
                   const SizedBox(height: SSizes.spaceBtwSections),
-                  SSectionHeading(title: 'Description',showActionButton: false),
+                  const SSectionHeading(title: 'Description',showActionButton: false),
                   const SizedBox(height: SSizes.spaceBtwItems),
 
                   ReadMoreText(
@@ -50,8 +48,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' show more',
                     trimExpandedText: ' show less',
-                    moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(height: SSizes.spaceBtwItems),
                 ],

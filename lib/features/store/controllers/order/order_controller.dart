@@ -18,7 +18,7 @@ class OrderController extends GetxController {
   static OrderController get instance => Get.find();
 
   final cartController = CartController.instance;
-  final checkoutController = CheckoutController.instance;
+  // final checkoutController = CheckoutController.instance;
   final addressController = AddressController.instance;
   final _repository = Get.put(OrderRepository());
 
@@ -36,7 +36,7 @@ class OrderController extends GetxController {
           totalAmount: totalAmount,
           orderDate: DateTime.now(),
           userId: userId,
-          paymentMethod: checkoutController.selectedPaymentMethod.value.name,
+          paymentMethod: CheckoutController.instance.selectedPaymentMethod.value.name,
           address: addressController.selectedAddress.value,
           deliveryDate: DateTime.now());
 

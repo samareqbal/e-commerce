@@ -10,7 +10,7 @@ class SBindings extends Bindings{
   void dependencies() {
     Get.put(NetworkManager());
     Get.put(VariationController());
-    Get.put(CheckoutController());
+    // Get.put(CheckoutController());
     Get.put(AddressController());
   }
 }

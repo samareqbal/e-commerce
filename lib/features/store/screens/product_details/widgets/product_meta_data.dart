@@ -14,29 +14,29 @@ import '../../../../../utils/constants/sizes.dart';
 
 class SProductMetaData extends StatelessWidget {
   const SProductMetaData({
-    super.key, required this.product,
+    super.key,
+    required this.product,
   });
 
   final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
-
     final controller = ProductController.instance;
-    String? salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
+    String? salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-
-            if(salePercentage != null)...[
+            if (salePercentage != null) ...[
               SRoundedContainer(
                 radius: SSizes.sm,
                 backgroundColor: SColors.yellow.withOpacity(0.8),
                 padding: const EdgeInsets.symmetric(
                     horizontal: SSizes.sm, vertical: SSizes.xs),
-                child: Text("${salePercentage}%",
+                child: Text("$salePercentage%",
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
@@ -45,8 +45,8 @@ class SProductMetaData extends StatelessWidget {
               const SizedBox(width: SSizes.spaceBtwItems),
             ],
 
-
-            if(product.productType == ProductType.single.toString() && product.salePrice > 0)...[
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0) ...[
               Text('${STexts.currency}${product.price.toStringAsFixed(0)}',
                   style: Theme.of(context)
                       .textTheme
@@ -55,9 +55,10 @@ class SProductMetaData extends StatelessWidget {
               const SizedBox(width: SSizes.spaceBtwItems),
             ],
 
-            SProductPriceText(price: controller.getProductPrice(product), isLarge: true),
-            Spacer(),
-            IconButton(onPressed: () {}, icon: Icon(Icons.share))
+            SProductPriceText(
+                price: controller.getProductPrice(product), isLarge: true),
+            const Spacer(),
+            //IconButton(onPressed: () {}, icon: const Icon(Icons.share))
           ],
         ),
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
@@ -65,22 +66,24 @@ class SProductMetaData extends StatelessWidget {
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
         Row(
           children: [
-            SProductTitleText(title: 'Status'),
+            const SProductTitleText(title: 'Status'),
             const SizedBox(width: SSizes.spaceBtwItems),
-            Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium)
+            Text(controller.getProductStockStatus(product.stock),
+                style: Theme.of(context).textTheme.titleMedium)
           ],
         ),
         const SizedBox(height: SSizes.spaceBtwItems / 1.5),
         Row(
           children: [
             SCircularImage(
-              isNetworkImage: true,
+                isNetworkImage: true,
                 image: product.brand != null ? product.brand!.image : '',
                 width: 32.0,
                 height: 32.0,
                 padding: 0),
             const SizedBox(width: SSizes.spaceBtwItems),
-            SBrandTitleWithVerifyIcon(title: product.brand != null ? product.brand!.name : '')
+            SBrandTitleWithVerifyIcon(
+                title: product.brand != null ? product.brand!.name : '')
           ],
         ),
       ],
