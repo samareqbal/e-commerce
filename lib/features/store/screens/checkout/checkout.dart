@@ -18,6 +18,7 @@ import 'package:upstore/utils/popups/snackbar_helpers.dart';
 import '../../../../common/widgets/button/elevated_button.dart';
 import '../../../../common/widgets/text_fields/promo_code.dart';
 import '../../../../utils/constants/texts.dart';
+import '../../controllers/promo_code/promo_code_controller.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
@@ -28,49 +29,65 @@ class CheckoutScreen extends StatelessWidget {
     double subTotal = controller.totalCartPrice.value;
     double total = SPricingCalculator.calculateTotalPrice(subTotal, "India");
     final checkoutController = Get.put(CheckoutController());
+    final promoCodeController = Get.put(PromoCodeController());
     return Obx(
       () => SScreenPartialLoading(
         isLoading: checkoutController.isPaymentProcessing.value,
         child: Scaffold(
-          appBar: SAppBar(
-            showBackArrow: true,
-            title: Text('Order Review',
-                style: Theme.of(context).textTheme.headlineMedium),
-          ),
-          body: const SingleChildScrollView(
-            child: Padding(
-              padding: SPadding.screenPadding,
-              child: Column(
-                children: [
-                  SCartItems(showAddRemoveButtons: false),
-                  SizedBox(height: SSizes.spaceBtwSections),
-                  SPromoCodeField(),
-                  SizedBox(height: SSizes.spaceBtwSections),
-                  SRoundedContainer(
-                    showBorder: true,
-                    padding: EdgeInsets.all(SSizes.md),
-                    backgroundColor: Colors.transparent,
-                    child: Column(
-                      children: [
-                        SBillingAmountSection(),
-                        SizedBox(height: SSizes.spaceBtwItems),
-                        SBillingPaymentSection(),
-                        SizedBox(height: SSizes.spaceBtwItems),
-                        SBillingAddressSection()
-                      ],
-                    ),
-                  )
-                ],
+            appBar: SAppBar(
+              showBackArrow: true,
+              title: Text('Order Review',
+                  style: Theme.of(context).textTheme.headlineMedium),
+            ),
+            body: GestureDetector(
+              behavior: HitTestBehavior.opaque, // allows tap detection on empty space
+              onTap: () {
+                FocusScope.of(context)
+                    .unfocus(); // un focus text fields and hide keyboard
+              },
+              child: const SingleChildScrollView(
+                child: Padding(
+                  padding: SPadding.screenPadding,
+                  child: Column(
+                    children: [
+                      SCartItems(showAddRemoveButtons: false),
+                      SizedBox(height: SSizes.spaceBtwSections),
+                      SPromoCodeField(),
+                      SizedBox(height: SSizes.spaceBtwSections),
+                      SRoundedContainer(
+                        showBorder: true,
+                        padding: EdgeInsets.all(SSizes.md),
+                        backgroundColor: Colors.transparent,
+                        child: Column(
+                          children: [
+                            SBillingAmountSection(),
+                            SizedBox(height: SSizes.spaceBtwItems),
+                            SBillingPaymentSection(),
+                            SizedBox(height: SSizes.spaceBtwItems),
+                            SBillingAddressSection()
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(SSizes.defaultSpace),
-            child: SElevatedButton(
-                onPressed: subTotal > 0 ? () => checkoutController.checkout(total) : () => SSnackBarHelpers.errorSnackBar(title: 'Empty Cart', message: 'Add items to cart'),
-                child: Text('Checkout ${STexts.currency}$total')),
-          ),
-        ),
+            bottomNavigationBar: Obx(() {
+
+              final promoCode = promoCodeController.appliedPromoCode.value;
+              total = promoCodeController.calculatePriceAfterDiscount(promoCode, total);
+
+              return Padding(
+                padding: const EdgeInsets.all(SSizes.defaultSpace),
+                child: SElevatedButton(
+                    onPressed: subTotal > 0
+                        ? () => checkoutController.checkout(total)
+                        : () => SSnackBarHelpers.errorSnackBar(
+                            title: 'Empty Cart', message: 'Add items to cart'),
+                    child: Text('Checkout ${STexts.currency}${total.toStringAsFixed(2)}')),
+              );
+            })),
       ),
     );
   }

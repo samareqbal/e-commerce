@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/data/services/stripe_services.dart';
 import 'package:upstore/features/store/controllers/order/order_controller.dart';
+import 'package:upstore/features/store/controllers/promo_code/promo_code_controller.dart';
 import 'package:upstore/features/store/models/payment_method_model.dart';
 import 'package:upstore/utils/constants/enums.dart';
 import 'package:upstore/utils/constants/images.dart';
@@ -99,6 +100,10 @@ class CheckoutController extends GetxController {
       }
       isPaymentProcessing.value = false;
       await _orderController.processOrder(totalAmount);
+
+      await PromoCodeController.instance.decreaseNoOfPromoCodes();
+
+      await PromoCodeController.instance.addUserToPromoCode();
 
     }catch(e){
       isPaymentProcessing.value = false;
