@@ -30,71 +30,67 @@ class SubCategoryScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: SPadding.screenPadding,
-          child: Column(
-            children: [
-              FutureBuilder(
-                future: controller.getSubCategories(category.id),
-                builder: (context, snapshot) {
+          child: FutureBuilder(
+            future: controller.getSubCategories(category.id),
+            builder: (context, snapshot) {
+              const loader = SHorizontalProductShimmer();
 
-                  const loader = SHorizontalProductShimmer();
+              final widget = SCloudHelperFunctions.checkMultiRecordState(
+                  snapshot: snapshot, loader: loader);
+              if (widget != null) return widget;
 
-                  final widget = SCloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot, loader: loader);
-                  if (widget != null) return widget;
+              final subCategories = snapshot.data!;
 
-                  final subCategories = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: subCategories.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  CategoryModel subCategory = subCategories[index];
 
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: subCategories.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      CategoryModel subCategory = subCategories[index];
+                  //fetch products for sub categories
+                  return FutureBuilder(
+                    future: controller.getCategoryProduct(
+                        categoryId: subCategory.id),
+                    builder: (context, snapshot) {
+                      final widget =
+                          SCloudHelperFunctions.checkMultiRecordState(
+                              snapshot: snapshot, loader: loader);
+                      if (widget != null) return widget;
 
-                      //fetch products for sub categories
-                      return FutureBuilder(
-                        future: controller.getCategoryProduct(
-                            categoryId: subCategory.id),
-                        builder: (context, snapshot) {
-                          final widget =
-                              SCloudHelperFunctions.checkMultiRecordState(
-                                  snapshot: snapshot,loader: loader);
-                          if (widget != null) return widget;
+                      List<ProductModel> products = snapshot.data!;
 
-                          List<ProductModel> products = snapshot.data!;
-
-                          return Column(
-                            children: [
-                              SSectionHeading(
-                                  title: subCategory.name,
-                                  onPressed: () => Get.to(() =>
-                                      AllProductsScreen(
-                                          title: subCategory.name,
-                                      futureMethod: controller.getCategoryProduct(categoryId: subCategory.id, limit: -1),))),
-                              const SizedBox(height: SSizes.spaceBtwItems / 2),
-                              SizedBox(
-                                  height: 120,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(
-                                            width: SSizes.spaceBtwItems / 2),
-                                    itemCount: products.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      final product = products[index];
-                                      return SProductCardHorizontal(
-                                          product: product);
-                                    },
-                                  )),
-                            ],
-                          );
-                        },
+                      return Column(
+                        children: [
+                          SSectionHeading(
+                              title: subCategory.name,
+                              onPressed: () => Get.to(() => AllProductsScreen(
+                                    title: subCategory.name,
+                                    futureMethod: controller.getCategoryProduct(
+                                        categoryId: subCategory.id, limit: -1),
+                                  ))),
+                          const SizedBox(height: SSizes.spaceBtwItems / 2),
+                          SizedBox(
+                              height: 120,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                        width: SSizes.spaceBtwItems / 2),
+                                itemCount: products.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final product = products[index];
+                                  return SProductCardHorizontal(
+                                      product: product);
+                                },
+                              )),
+                        ],
                       );
                     },
                   );
                 },
-              )
-            ],
+              );
+            },
           ),
         ),
       ),

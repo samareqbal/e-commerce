@@ -14,7 +14,6 @@ class SPromoCodeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = SHelperFunctions.isDarkMode(context);
     final controller = PromoCodeController.instance;
     return SRoundedContainer(
       showBorder: true,

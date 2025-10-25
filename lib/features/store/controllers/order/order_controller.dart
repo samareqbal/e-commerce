@@ -29,6 +29,12 @@ class OrderController extends GetxController {
       String userId = AuthenticationRepository.instance.currentUser!.uid;
       if (userId.isEmpty) return;
 
+      if(addressController.selectedAddress.value.id.isEmpty){
+        SSnackBarHelpers.warningSnackBar(title: 'Address not selected', message: 'Please select address');
+        SFullScreenLoader.stopLoading();
+        return;
+      }
+
       OrderModel order = OrderModel(
           id: UniqueKey().toString(),
           status: OrderStatus.pending,
@@ -57,7 +63,7 @@ class OrderController extends GetxController {
 
   Future<List<OrderModel>> fetchUserOrders() async {
     try {
-      final orders = _repository.fetchUserOrders();
+      final orders = await _repository.fetchUserOrders();
       return orders;
     } catch (e) {
       SSnackBarHelpers.errorSnackBar(title: 'Unable to fetch orders');

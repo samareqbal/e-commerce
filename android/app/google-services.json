@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:275522388912:android:4d4ddc195c80f4b1798c75",
+        "mobilesdk_app_id": "1:275522388912:android:ae260525086150ff798c75",
         "android_client_info": {
-          "package_name": "com.samar.upstore"
+          "package_name": "com.samar.vella"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "275522388912-fql7rag5ml5bo0p35035t6jt8p3rtt9e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.samar.upstore",
-            "certificate_hash": "7fbfebb4a41d9674039754ca376de9021b744122"
-          }
-        },
         {
           "client_id": "275522388912-sna31p562gg0hqt8ffrlr5u79flgk8rc.apps.googleusercontent.com",
           "client_type": 3

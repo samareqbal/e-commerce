@@ -8,7 +8,6 @@ import 'package:upstore/utils/constants/texts.dart';
 
 import '../../../../utils/helpers/network_manager.dart';
 import '../../../../utils/helpers/pricing_calculator.dart';
-import '../../../../utils/popups/full_screen_loader.dart';
 import '../../../../utils/popups/snackbar_helpers.dart';
 import '../cart/cart_controller.dart';
 

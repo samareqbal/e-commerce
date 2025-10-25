@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upstore/common/widgets/button/elevated_button.dart';
 import 'package:upstore/common/widgets/loaders/circular_loader.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
 import 'package:upstore/data/repositories/address/address_repository.dart';
 import 'package:upstore/features/personalization/models/address_model.dart';
+import 'package:upstore/features/personalization/screens/address/add_new_address.dart';
 import 'package:upstore/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:upstore/utils/constants/sizes.dart';
 import 'package:upstore/utils/helpers/cloud_helper_functions.dart';
@@ -56,15 +58,17 @@ class AddressController extends GetxController {
           state: state.text.trim(),
           country: country.text.trim(),
           dateTime: DateTime.now());
-      
+
       String addressId = await _repository.addAddress(address);
 
       address.id = addressId;
 
       selectAddress(address);
-      
+
       SFullScreenLoader.stopLoading();
-      SSnackBarHelpers.successSnackBar(title: 'Congratulations', message: 'Your address has been saved successfully');
+      SSnackBarHelpers.successSnackBar(
+          title: 'Congratulations',
+          message: 'Your address has been saved successfully');
 
       refreshData.toggle();
 
@@ -72,15 +76,13 @@ class AddressController extends GetxController {
 
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
-
     } catch (e) {
-      
       SFullScreenLoader.stopLoading();
       SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
     }
   }
 
-  void resetFormFields(){
+  void resetFormFields() {
     name.clear();
     phoneNumber.clear();
     street.clear();
@@ -93,33 +95,30 @@ class AddressController extends GetxController {
   }
 
   Future<List<AddressModel>> getAllAddress() async {
-    try{
-
+    try {
       List<AddressModel> address = await _repository.fetchUserAddress();
-      selectedAddress.value = address.firstWhere((address) => address.selectedAddress, orElse: AddressModel.empty);
+      selectedAddress.value = address.firstWhere(
+          (address) => address.selectedAddress,
+          orElse: AddressModel.empty);
       return address;
-
-
-    }catch(e){
+    } catch (e) {
       SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
       return [];
     }
   }
 
   Future<void> selectAddress(AddressModel address) async {
-    try{
-
+    try {
       Get.defaultDialog(
-        title: '',
-        onWillPop: () async {
-          return false;
-        },
-        barrierDismissible: false,
-        backgroundColor: Colors.transparent,
-        content: const SCircularLoader()
-      );
+          title: '',
+          onWillPop: () async {
+            return false;
+          },
+          barrierDismissible: false,
+          backgroundColor: Colors.transparent,
+          content: const SCircularLoader());
 
-      if(selectedAddress.value.id.isNotEmpty){
+      if (selectedAddress.value.id.isNotEmpty) {
         await _repository.updateSelectedField(selectedAddress.value.id, false);
       }
 
@@ -129,41 +128,61 @@ class AddressController extends GetxController {
       await _repository.updateSelectedField(selectedAddress.value.id, true);
 
       Get.back();
-
-    }catch(e){
+    } catch (e) {
       Get.back();
       SSnackBarHelpers.errorSnackBar(title: 'Failed', message: e.toString());
     }
   }
 
-  Future<void> selectNewAddressBottomSheet(BuildContext context){
-    return showModalBottomSheet(context: context, builder: (context) => SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(SSizes.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SSectionHeading(title: 'Select Address', showActionButton: false),
-            const SizedBox(height: SSizes.spaceBtwItems),
-            FutureBuilder(future: getAllAddress(), builder: (context, snapshot) {
+  Future<void> selectNewAddressBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) => Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(SSizes.lg),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SSectionHeading(
+                            title: 'Select Address', showActionButton: false),
+                        const SizedBox(height: SSizes.spaceBtwItems),
+                        FutureBuilder(
+                          future: getAllAddress(),
+                          builder: (context, snapshot) {
+                            final widget =
+                                SCloudHelperFunctions.checkMultiRecordState(
+                                    snapshot: snapshot);
+                            if (widget != null) return widget;
 
-              final widget = SCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
-              if(widget != null) return widget;
-
-              return ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                  itemBuilder: (context, index) => SSingleAddress(address: snapshot.data![index], onTap: () async {
-                    await selectAddress(snapshot.data![index]);
-                    Get.back();
-                  }),
-                  separatorBuilder: (context, index) => const SizedBox(height: SSizes.spaceBtwItems),
-                  itemCount: snapshot.data!.length
-              );
-            },)
-          ],
-        ),
-      ),
-    ));
+                            return ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => SSingleAddress(
+                                    address: snapshot.data![index],
+                                    onTap: () async {
+                                      await selectAddress(snapshot.data![index]);
+                                      Get.back();
+                                    }),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                        height: SSizes.spaceBtwItems),
+                                itemCount: snapshot.data!.length);
+                          },
+                        ),
+                        const SizedBox(height: SSizes.spaceBtwSections * 2)
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: SSizes.defaultSpace * 2,
+                  right: SSizes.defaultSpace * 2,
+                  bottom: SSizes.defaultSpace ,
+                    child: SElevatedButton(
+                        onPressed: () => Get.to(() => AddNewAddressScreen()), child: const Text("Add new address")))
+              ],
+            ));
   }
 }

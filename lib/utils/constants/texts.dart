@@ -2,7 +2,7 @@ class STexts{
   STexts._();
   static const String currency = '₹';  //'\₹'
 
-  static const String onBoardingTitle1 = 'Welcome to UP Store';
+  static const String onBoardingTitle1 = 'Welcome to Vella';
   static const String onBoardingTitle2 = 'Shop Everything You Love!';
   static const String onBoardingTitle3 = 'Fast & Reliable Delivery!';
 

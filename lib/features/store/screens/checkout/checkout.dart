@@ -6,7 +6,6 @@ import 'package:upstore/common/widgets/custom_shapes/rounded_container.dart';
 import 'package:upstore/common/widgets/loaders/screen_partial_loading.dart';
 import 'package:upstore/features/store/controllers/cart/cart_controller.dart';
 import 'package:upstore/features/store/controllers/checkout/checkout_controller.dart';
-import 'package:upstore/features/store/controllers/order/order_controller.dart';
 import 'package:upstore/features/store/screens/cart/widgets/cart_items.dart';
 import 'package:upstore/features/store/screens/checkout/widgets/billind_address_section.dart';
 import 'package:upstore/features/store/screens/checkout/widgets/billing_amount_section.dart';

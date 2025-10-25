@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:upstore/common/widgets/texts/section_heading.dart';
+import 'package:upstore/features/store/controllers/cart/cart_controller.dart';
 import 'package:upstore/features/store/models/product_model.dart';
 import 'package:upstore/features/store/screens/product_details/widgets/bottom_add_to_cart.dart';
 import 'package:upstore/features/store/screens/product_details/widgets/product_attributes.dart';
@@ -37,7 +38,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     const SizedBox(height: SSizes.spaceBtwSections),
                   ],
 
-                  SElevatedButton(onPressed: (){}, child: const Text('Checkout')),
+                  SElevatedButton(onPressed: () => CartController.instance.checkout(product), child: const Text('Checkout')),
                   const SizedBox(height: SSizes.spaceBtwSections),
                   const SSectionHeading(title: 'Description',showActionButton: false),
                   const SizedBox(height: SSizes.spaceBtwItems),

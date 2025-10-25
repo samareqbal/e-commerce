@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
@@ -32,8 +33,8 @@ class SRoundedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget image = isNetworkImage
-        ? Image.network(imageUrl, fit: fit)
-        : Image.asset(imageUrl, fit: fit);
+        ? CachedNetworkImage(imageUrl: imageUrl, errorWidget: (context, url, error) => const Icon(Icons.error),)
+        : Image(image: AssetImage(imageUrl), fit: fit);
 
     Widget content = Container(
       width: width,

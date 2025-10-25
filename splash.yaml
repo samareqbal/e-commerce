@@ -1,14 +1,20 @@
 flutter_native_splash:
   color: "#FFFFFF" # white Color
   color_dark: "#000000" # Black Color
-  image: assets/logo/black_app_logo.png
-  image_dark: assets/logo/white_app_logo.png
+  image: assets/logo/splash.png
+  image_dark: assets/logo/splash_black.png
+  android_gravity: center
+  ios_content_mode: scaleAspectFit
+  web_image_mode: contain
 
   android_12:
     color: "#FFFFFF" # white Color
     color_dark: "#000000" # Black Color
-    image: assets/logo/black_app_logo.png
-    image_dark: assets/logo/white_app_logo.png
+    image: assets/logo/splash.png
+    image_dark: assets/logo/splash_black.png
+    android_gravity: center
+    ios_content_mode: scaleAspectFit
+    web_image_mode: contain
 
 
   web: false

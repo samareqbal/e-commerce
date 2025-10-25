@@ -4,6 +4,7 @@ import 'package:upstore/data/repositories/authentication_repository.dart';
 import 'package:upstore/features/store/controllers/product/variation_controller.dart';
 import 'package:upstore/features/store/models/cart_item_model.dart';
 import 'package:upstore/features/store/models/product_model.dart';
+import 'package:upstore/features/store/screens/checkout/checkout.dart';
 import 'package:upstore/utils/constants/enums.dart';
 import 'package:upstore/utils/constants/keys.dart';
 import 'package:upstore/utils/popups/snackbar_helpers.dart';
@@ -210,5 +211,41 @@ class CartController extends GetxController {
         price: price,
         selectedVariation: isVariation ? variation.attributeValues : null,
         variationId: variation.id);
+  }
+
+  Future<void> checkout(ProductModel product) async {
+
+    cartItems.clear();
+
+    productQuantityInCart.value = 1;
+
+    if(product.productType == ProductType.variable.toString() && variationController.selectedVariations.value.id.isEmpty){
+      SSnackBarHelpers.customToast(message: 'Select Variation');
+      return;
+    }
+
+    if(product.productType == ProductType.variable.toString()){
+      if(variationController.selectedVariations.value.stock < 1){
+        SSnackBarHelpers.warningSnackBar(title: 'Out of Stock', message: 'This variation is out of stock');
+        return;
+      }
+
+    }else{
+      if(product.stock < 1){
+        SSnackBarHelpers.warningSnackBar(title: 'Out of Stock', message: 'Product is out of stock');
+      }
+    }
+
+
+    CartItemModel selectedCartItem = convertToCartItem(product, productQuantityInCart.value);
+    
+    cartItems.add(selectedCartItem);
+
+    updateCartTotals();
+
+    await Get.to(() => const CheckoutScreen());
+
+    loadCartItems();
+
   }
 }

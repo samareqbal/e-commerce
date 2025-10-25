@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.samar.upstore"
+        applicationId "com.samar.vella"
         minSdkVersion 25
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

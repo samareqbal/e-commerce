@@ -13,7 +13,7 @@ import '../../../../utils/popups/snackbar_helpers.dart';
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
 
-  final _controller = Get.put(UserController());
+
 
   final loginFormKey = GlobalKey<FormState>();
 
@@ -83,7 +83,7 @@ class LoginController extends GetxController {
 
       UserCredential userCredential = await AuthenticationRepository.instance.googleSignIn();
 
-      await _controller.saveUserRecord(userCredential);
+      await Get.put(UserController()).saveUserRecord(userCredential);
 
       SFullScreenLoader.stopLoading();
 
